@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yash Shankaram - Space Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        font-family: 'Space Grotesk', sans-serif;
+        background: #030014;
+        overflow-x: hidden;
+        cursor: none;
+      }
+      
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(ellipse at center, #0f0f3e 0%, #030014 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        transition: opacity 0.8s ease-out;
+      }
+      
+      .loading-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+      
+      .loading-planet {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        box-shadow: 0 0 30px rgba(79, 172, 254, 0.6);
+        position: relative;
+        animation: pulse 2s ease-in-out infinite;
+      }
+      
+      .loading-orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120px;
+        height: 120px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+      }
+      
+      .loading-satellite {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-radius: 50%;
+        top: 0;
+        left: 50%;
+        transform-origin: 0 60px;
+        animation: orbit 2s linear infinite;
+      }
+      
+      .loading-text {
+        font-family: 'Space Mono', monospace;
+        font-size: 1rem;
+        color: #4facfe;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      
+      @keyframes orbit {
+        from { transform: rotate(0deg) translateX(60px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(60px) rotate(-360deg); }
+      }
+      
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading-screen" id="loading">
+      <div class="loading-content">
+        <div class="loading-planet">
+          <div class="loading-orbit">
+            <div class="loading-satellite"></div>
+          </div>
+        </div>
+        <div class="loading-text">Initializing Space Travel</div>
+      </div>
+    </div>
+    <div class="stars" id="stars"></div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('loading');
+          if (loading) {
+            loading.style.opacity = '0';
+            setTimeout(() => loading.remove(), 800);
+          }
+        }, 2500);
+        
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+          const star = document.createElement('div');
+          star.style.position = 'absolute';
+          star.style.width = `${Math.random() * 2}px`;
+          star.style.height = star.style.width;
+          star.style.backgroundColor = '#fff';
+          star.style.borderRadius = '50%';
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.opacity = Math.random() * 0.8 + 0.2;
+          star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
+          starsContainer.appendChild(star);
+        }
+        
+        // Add twinkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes twinkle {
+            0% { opacity: ${Math.random() * 0.5 + 0.3}; }
+            100% { opacity: ${Math.random() * 0.2 + 0.7}; }
+          }
+        `;
+        document.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>
