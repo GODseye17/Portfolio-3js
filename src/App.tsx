@@ -294,7 +294,7 @@ const App: React.FC = () => {
                 {/* Social Links */}
                 <div className="flex justify-center gap-6 mt-6">
                   <a 
-                    href="https://linkedin.com/in/yash-shankaram" 
+                    href="https://www.linkedin.com/in/yash-shankaram-035426237/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="interactive cursor-pointer group"
@@ -305,7 +305,7 @@ const App: React.FC = () => {
                     </div>
                   </a>
                   <a 
-                    href="https://github.com/yash-shankaram" 
+                    href="https://github.com/GODseye17" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="interactive cursor-pointer group"
