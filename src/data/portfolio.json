@@ -1,0 +1,281 @@
+{
+  "personalInfo": {
+    "name": "Yash Shankaram",
+    "title": "Full-Stack Developer & Software Engineer",
+    "subtitle": "B.Tech Information Technology | Big Data Specialization",
+    "email": "yshankaram17@gmail.com",
+    "phone": "+91-6287229999",
+    "location": "Bangalore, India",
+    "rollNo": "210911378",
+    "university": "Manipal Institute of Technology",
+    "universityEmail": "yash.shankaram@learner.manipal.edu",
+    "social": {
+      "github": "https://github.com/yourusername",
+      "linkedin": "https://linkedin.com/in/yourusername",
+      "twitter": "https://twitter.com/yourusername"
+    }
+  },
+  
+  "sections": [
+    {
+      "id": "hero",
+      "title": "Yash Shankaram",
+      "subtitle": "Full-Stack Developer & Software Engineer",
+      "content": "Building scalable solutions with modern web technologies and AI. Currently developing medical AI platforms at Ad Vivum.",
+      "highlights": ["React.js", "Node.js", "AI/ML", "Big Data"],
+      "cta": "Explore My Journey"
+    },
+    {
+      "id": "about",
+      "title": "About Me",
+      "subtitle": "Passionate Tech Innovator",
+      "content": "I'm a B.Tech student at Manipal Institute of Technology specializing in Information Technology with a minor in Big Data. Currently working as a Software Engineer Trainee at Ad Vivum, building cutting-edge medical AI platforms.",
+      "stats": {
+        "yearsOfStudy": "2021-2025",
+        "currentRole": "Software Engineer Trainee",
+        "projects": "10+",
+        "leadership": "2 Positions"
+      }
+    },
+    {
+      "id": "experience",
+      "title": "Professional Experience",
+      "subtitle": "Building Real-World Solutions",
+      "content": "From developing AI-powered medical platforms to streamlining industrial processes, my journey has been about creating impactful solutions.",
+      "positions": [
+        {
+          "title": "Software Engineer Trainee, Founding Member",
+          "company": "Ad Vivum",
+          "period": "March 2025 - Present",
+          "location": "Bangalore",
+          "description": "Developing Vivum.app - A scalable medical AI platform",
+          "achievements": [
+            "Building scalable medical AI platform using RAG (LangChain, FAISS, LLaMA) for citation-grounded academic search",
+            "Implemented semantic and keyword-based search with FAISS and ElasticSearch, supporting real-time research queries",
+            "Developing responsive, high-performance web app with Vite, React, Next.js and TailwindCSS"
+          ],
+          "technologies": ["React", "Next.js", "LangChain", "FAISS", "LLaMA", "ElasticSearch", "TailwindCSS"]
+        },
+        {
+          "title": "Web Developer Intern",
+          "company": "SAIL, RDCIS",
+          "period": "May 2024 - June 2024",
+          "location": "Ranchi",
+          "description": "Streamlined material movement tracking system",
+          "achievements": [
+            "Studied network architecture of R&D Department of SAIL",
+            "Developed website to streamline material movement approval and tracking using QR codes",
+            "Reduced paperwork by over 80% and eliminated need for 200+ forms per month"
+          ],
+          "technologies": ["Web Development", "QR Code Integration", "Process Automation"]
+        }
+      ]
+    },
+    {
+      "id": "skills",
+      "title": "Technical Skills",
+      "subtitle": "My Technology Stack",
+      "content": "Proficient in modern web technologies, AI/ML frameworks, and cloud platforms with a focus on building scalable solutions.",
+      "categories": [
+        {
+          "title": "Languages",
+          "icon": "Code",
+          "skills": [
+            { "name": "JavaScript/TypeScript", "level": 90 },
+            { "name": "Python", "level": 85 },
+            { "name": "Java", "level": 80 },
+            { "name": "C/C++", "level": 75 },
+            { "name": "SQL", "level": 85 },
+            { "name": "Kotlin", "level": 70 }
+          ]
+        },
+        {
+          "title": "Frontend",
+          "icon": "Layout",
+          "skills": [
+            { "name": "React.js", "level": 90 },
+            { "name": "Next.js", "level": 85 },
+            { "name": "TailwindCSS", "level": 90 },
+            { "name": "HTML/CSS", "level": 95 },
+            { "name": "Angular", "level": 70 },
+            { "name": "Vite", "level": 85 }
+          ]
+        },
+        {
+          "title": "Backend & Database",
+          "icon": "Database",
+          "skills": [
+            { "name": "Node.js", "level": 85 },
+            { "name": "Flask", "level": 75 },
+            { "name": "MongoDB", "level": 80 },
+            { "name": "MySQL", "level": 85 },
+            { "name": "PgliteDB", "level": 75 },
+            { "name": "ElasticSearch", "level": 70 }
+          ]
+        },
+        {
+          "title": "AI/ML & Tools",
+          "icon": "Brain",
+          "skills": [
+            { "name": "LangChain", "level": 80 },
+            { "name": "FAISS", "level": 75 },
+            { "name": "Pandas/NumPy", "level": 85 },
+            { "name": "Git/GitHub", "level": 90 },
+            { "name": "Android Studio", "level": 70 }
+          ]
+        }
+      ],
+      "coursework": ["Algorithms", "OOP", "DBMS", "Embedded Systems", "OS", "Data Mining", "Software Engineering"]
+    },
+    {
+      "id": "projects",
+      "title": "Featured Projects",
+      "subtitle": "Innovation Through Code",
+      "content": "Building solutions that make a difference - from healthcare applications to AI-powered tools.",
+      "projects": [
+        {
+          "title": "Patient Care App",
+          "description": "Real-time patient care application with secure session handling and efficient local-first storage",
+          "longDescription": "Developed a real-time patient care app with secure session handling and efficient local-first storage. Designed for offline-first access and synced updates, improving accessibility and data reliability for patient records.",
+          "features": [
+            "Offline-first access with synced updates",
+            "Session-based access control for data privacy",
+            "Efficient local-first storage using Pglite",
+            "Seamless user experience"
+          ],
+          "technologies": ["React", "TailwindCSS", "Pglite (SQLite in WebAssembly)", "Session Management", "SQL"],
+          "links": {
+            "demo": "#",
+            "github": "#",
+            "live": "#"
+          },
+          "featured": true
+        },
+        {
+          "title": "AI Document Q&A",
+          "description": "AI-powered Q&A app to extract and analyze content from Excel/PDF files using Google Gemini API",
+          "longDescription": "Built an AI-powered Q&A app that extracts and analyzes content from uploaded Excel and PDF documents to provide precise answers using Google's Gemini API. Implemented full-stack functionality with file parsing, API integration, and real-time user interaction.",
+          "features": [
+            "Excel and PDF document parsing",
+            "Real-time Q&A using Gemini API",
+            "Full-stack implementation",
+            "User-friendly interface"
+          ],
+          "technologies": ["HTML", "CSS", "Node.js", "Gemini API", "File Parsing"],
+          "links": {
+            "demo": "#",
+            "github": "#",
+            "live": "#"
+          },
+          "featured": true
+        },
+        {
+          "title": "WeCare: Pregnancy Care Application",
+          "description": "Comprehensive pregnancy and postpartum care application for mothers",
+          "longDescription": "Built a comprehensive pregnancy and postpartum care application using Android Studio. Offered personalized nutrition plans, exercise routines, breastfeeding support, and mental health resources.",
+          "features": [
+            "Personalized nutrition and diet plans",
+            "Tailored exercise routines",
+            "Expert breastfeeding support",
+            "Mental health resources"
+          ],
+          "technologies": ["Android Studio", "Kotlin", "EDAMAM API Integration"],
+          "links": {
+            "demo": "#",
+            "github": "#",
+            "live": "#"
+          },
+          "featured": true
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Let's Connect",
+      "subtitle": "Start a Conversation",
+      "content": "I'm always excited to discuss new opportunities, innovative projects, and collaborative ventures. Let's build something amazing together!",
+      "contactInfo": {
+        "email": "yshankaram17@gmail.com",
+        "phone": "+91-6287229999",
+        "location": "Bangalore, India",
+        "availability": "Open to opportunities"
+      }
+    }
+  ],
+  
+  "education": [
+    {
+      "degree": "B.Tech in Information Technology",
+      "institution": "Manipal Institute of Technology, Manipal",
+      "period": "2021-2025",
+      "specialization": "Minor Specialization: Big Data",
+      "current": true
+    },
+    {
+      "degree": "12th Standard",
+      "institution": "Delhi Public School, Ranchi",
+      "period": "2021",
+      "board": "Central Board of Secondary Education",
+      "percentage": "91.6%",
+      "current": false
+    },
+    {
+      "degree": "10th Standard",
+      "institution": "Delhi Public School, Ranchi",
+      "period": "2019",
+      "board": "Central Board of Secondary Education",
+      "percentage": "92.4%",
+      "current": false
+    }
+  ],
+  
+  "leadership": [
+    {
+      "title": "Arts and Graphics Head",
+      "organization": "Editorial Board, MIT Manipal",
+      "period": "January 2024 - December 2024",
+      "description": "Led design and editorial initiatives",
+      "achievements": [
+        "Led a team of 20 designers and writers, fostering collaborative and innovative work environment",
+        "Contributed to design of regular newsletters, improving content engagement by 60%"
+      ]
+    },
+    {
+      "title": "Events and Design Head",
+      "organization": "Entrepreneurship Cell (E-Cell), MIT Manipal",
+      "period": "August 2023 - August 2024",
+      "description": "Managed events and design for entrepreneurship initiatives",
+      "achievements": [
+        "Coordinated Manipal Entrepreneurship Summit (MES), connecting 5 VCs and onboarding 15 mentors",
+        "Managed graphic design tasks, increased social media engagement by 40%"
+      ]
+    }
+  ],
+  
+  "achievements": [
+    {
+      "title": "Reduced Industrial Paperwork by 80%",
+      "description": "Developed QR-based tracking system at SAIL, eliminating 200+ forms monthly",
+      "year": "2024"
+    },
+    {
+      "title": "Founding Member at Ad Vivum",
+      "description": "Part of founding team building medical AI platform",
+      "year": "2025"
+    },
+    {
+      "title": "60% Engagement Increase",
+      "description": "Improved newsletter engagement as Arts and Graphics Head",
+      "year": "2024"
+    }
+  ],
+  
+  "interests": [
+    "AI/Machine Learning",
+    "Big Data Analytics",
+    "Healthcare Technology",
+    "Web Development",
+    "Mobile App Development",
+    "Entrepreneurship"
+  ]
+}

@@ -1,37 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+// src/components/ScrollIndicator.tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 
 const ScrollIndicator: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <motion.div 
-      className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-space-blue via-space-purple to-space-pink z-50 origin-left"
-      style={{ 
-        scaleX,
-        opacity: isVisible ? 1 : 0,
-        transition: 'opacity 0.3s ease'
-      }}
-    />
+      className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1, duration: 0.8 }}
+    >
+      <motion.div
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="text-cyan-400/60 text-sm font-mono"
+      >
+        Scroll to explore
+      </motion.div>
+      <motion.div
+        animate={{ y: [0, 5, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+      >
+        <ChevronDown className="w-6 h-6 text-cyan-400" />
+      </motion.div>
+    </motion.div>
   );
 };
 
