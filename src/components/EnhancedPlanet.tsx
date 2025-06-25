@@ -183,7 +183,7 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
         ref={(el) => planetRefs.current[index] = el}
         position={config.position}
       >
-        {/* Main planet with enhanced materials */}
+        {/* Main planet with clean materials - NO WHITE PIXELS */}
         <mesh castShadow receiveShadow>
           <sphereGeometry args={[config.size, 64, 64]} />
           <meshStandardMaterial
@@ -193,20 +193,6 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
             metalness={0.4}
             roughness={0.6}
             envMapIntensity={1.5}
-          />
-        </mesh>
-        
-        {/* Enhanced surface details with normal mapping effect */}
-        <mesh>
-          <sphereGeometry args={[config.size * 1.005, 32, 32]} />
-          <meshStandardMaterial
-            color={config.color}
-            transparent
-            opacity={0.4}
-            metalness={0.6}
-            roughness={0.4}
-            emissive={config.emissive}
-            emissiveIntensity={0.1}
           />
         </mesh>
         
@@ -284,15 +270,15 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
           </>
         )}
         
-        {/* Enhanced clouds for some planets */}
+        {/* Enhanced clouds for some planets - Using planet colors instead of white */}
         {config.hasClouds && (
           <>
             <mesh>
               <sphereGeometry args={[config.size * 1.08, 32, 32]} />
               <meshStandardMaterial
-                color="#ffffff"
+                color={new THREE.Color(config.color).lerp(new THREE.Color('#ffffff'), 0.7)}
                 transparent
-                opacity={0.3}
+                opacity={0.2}
                 metalness={0}
                 roughness={1}
                 blending={THREE.AdditiveBlending}
@@ -302,26 +288,15 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
             <mesh rotation={[0, Math.PI / 4, 0]}>
               <sphereGeometry args={[config.size * 1.06, 24, 24]} />
               <meshStandardMaterial
-                color="#ffffff"
+                color={new THREE.Color(config.color).lerp(new THREE.Color('#ffffff'), 0.8)}
                 transparent
-                opacity={0.2}
+                opacity={0.15}
                 metalness={0}
                 roughness={1}
                 blending={THREE.AdditiveBlending}
               />
             </mesh>
           </>
-        )}
-        
-        {/* Planet label (appears on hover/active) */}
-        {currentSection === index && (
-          <sprite position={[0, config.size + 1.5, 0]}>
-            <spriteMaterial 
-              color="#ffffff" 
-              opacity={0.9}
-              transparent
-            />
-          </sprite>
         )}
       </group>
     );
@@ -395,7 +370,7 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
         <mesh>
           <cylinderGeometry args={[0.3, 0.3, 2, 8]} />
           <meshStandardMaterial 
-            color="#ffffff" 
+            color="#cccccc" 
             metalness={0.9} 
             roughness={0.1}
             emissive="#4facfe"
@@ -405,7 +380,7 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
         <mesh position={[0, 0, 1.5]} rotation={[Math.PI / 2, 0, 0]}>
           <cylinderGeometry args={[0.8, 0.8, 0.2, 8]} />
           <meshStandardMaterial 
-            color="#cccccc" 
+            color="#999999" 
             metalness={0.8} 
             roughness={0.2}
           />
