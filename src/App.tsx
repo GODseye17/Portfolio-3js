@@ -131,7 +131,7 @@ const App: React.FC = () => {
                 {section.highlights.map((tech: string) => (
                   <span 
                     key={tech}
-                    className="px-4 py-2 bg-white/10 backdrop-blur-lg rounded-full border border-cyan-400/30 text-cyan-400"
+                    className="px-4 py-2 bg-white/5 backdrop-blur-lg rounded-full border border-cyan-400/20 text-cyan-400"
                   >
                     {tech}
                   </span>
@@ -156,7 +156,7 @@ const App: React.FC = () => {
             {section.stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 {Object.entries(section.stats).map(([key, value]) => (
-                  <div key={key} className="text-center p-4 bg-white/5 backdrop-blur-lg rounded-lg">
+                  <div key={key} className="text-center p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-blue-400/10">
                     <div className="text-2xl font-bold text-cyan-400">{value}</div>
                     <div className="text-sm text-gray-400">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
@@ -183,7 +183,7 @@ const App: React.FC = () => {
                 {section.positions.slice(0, 2).map((position: any, index: number) => (
                   <div 
                     key={index}
-                    className="p-4 bg-white/5 backdrop-blur-lg rounded-lg border border-red-400/20"
+                    className="p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-red-400/10"
                   >
                     <h3 className="text-xl font-bold text-red-400">{position.title}</h3>
                     <p className="text-white">{position.company} • {position.period}</p>
@@ -212,7 +212,7 @@ const App: React.FC = () => {
                 {section.categories.map((category: any) => (
                   <div 
                     key={category.title}
-                    className="p-4 bg-white/5 backdrop-blur-lg rounded-lg border border-green-400/20"
+                    className="p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-green-400/10"
                   >
                     <h3 className="text-green-400 font-bold mb-2">{category.title}</h3>
                     <div className="space-y-1">
@@ -247,7 +247,7 @@ const App: React.FC = () => {
                 {section.projects.filter((p: any) => p.featured).map((project: any) => (
                   <div 
                     key={project.title}
-                    className="p-4 bg-gradient-to-r from-yellow-400/10 to-amber-500/10 backdrop-blur-lg rounded-lg border border-yellow-400/20"
+                    className="p-4 bg-gradient-to-r from-yellow-400/5 to-amber-500/5 backdrop-blur-lg rounded-lg border border-yellow-400/10"
                   >
                     <h3 className="text-yellow-400 font-bold">{project.title}</h3>
                     <p className="text-gray-300 text-sm mt-1">{project.description}</p>
@@ -368,7 +368,7 @@ const App: React.FC = () => {
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="max-w-4xl w-full text-center pointer-events-auto"
               >
-                <div className="bg-black/50 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/10 shadow-2xl">
+                <div className="bg-black/20 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/5 shadow-2xl">
                   {renderSectionContent(sections[currentSection])}
                 </div>
               </motion.div>
