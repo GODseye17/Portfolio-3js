@@ -11,6 +11,7 @@ import SpaceObjects from './components/SpaceObjects';
 import Navigation from './components/Navigation';
 import ScrollIndicator from './components/ScrollIndicator';
 import Cursor from './components/Cursor';
+import { Github, Linkedin } from 'lucide-react';
 import portfolioData from './data/portfolio.json';
 import type { PortfolioData, Section, Position, Project } from './types/portfolio';
 import './index.css';
@@ -273,11 +274,50 @@ const App: React.FC = () => {
               {section.content}
             </p>
             {section.contactInfo && (
-              <div className="space-y-2">
-                <p className="text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300">📧 {section.contactInfo.email}</p>
-                <p className="text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300">📱 {section.contactInfo.phone}</p>
-                <p className="text-gray-300 font-sans">📍 {section.contactInfo.location}</p>
-                <p className="text-purple-400 mt-4 font-sans">{section.contactInfo.availability}</p>
+              <div className="space-y-4 max-w-md mx-auto">
+                <a 
+                  href={`mailto:${section.contactInfo.email}`}
+                  className="block text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300 p-3 rounded-lg hover:bg-purple-400/10"
+                >
+                  📧 {section.contactInfo.email}
+                </a>
+                <a 
+                  href={`tel:${section.contactInfo.phone}`}
+                  className="block text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300 p-3 rounded-lg hover:bg-purple-400/10"
+                >
+                  📱 {section.contactInfo.phone}
+                </a>
+                <div className="text-gray-300 font-sans p-3">
+                  📍 {section.contactInfo.location}
+                </div>
+                
+                {/* Social Links */}
+                <div className="flex justify-center gap-6 mt-6">
+                  <a 
+                    href="https://www.linkedin.com/in/yash-shankaram-035426237/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="interactive cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3 p-4 bg-purple-400/10 rounded-lg border border-purple-400/20 hover:bg-purple-400/20 hover:border-purple-400/40 transition-all duration-300">
+                      <Linkedin className="w-6 h-6 text-purple-400 group-hover:text-purple-300" />
+                      <span className="text-gray-300 font-sans group-hover:text-white">LinkedIn</span>
+                    </div>
+                  </a>
+                  <a 
+                    href="https://github.com/GODseye17" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="interactive cursor-pointer group"
+                  >
+                    <div className="flex items-center gap-3 p-4 bg-purple-400/10 rounded-lg border border-purple-400/20 hover:bg-purple-400/20 hover:border-purple-400/40 transition-all duration-300">
+                      <Github className="w-6 h-6 text-purple-400 group-hover:text-purple-300" />
+                      <span className="text-gray-300 font-sans group-hover:text-white">GitHub</span>
+                    </div>
+                  </a>
+                </div>
+                
+                <p className="text-purple-400 mt-6 font-sans text-center">{section.contactInfo.availability}</p>
               </div>
             )}
           </>
