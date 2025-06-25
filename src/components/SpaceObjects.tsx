@@ -10,9 +10,9 @@ const SpaceObjects: React.FC = () => {
   const nebulaRef = useRef<THREE.Points>(null);
   const galaxyRef = useRef<THREE.Points>(null);
   
-  // Create enhanced star field - ONLY STARS, smaller and better distributed
+  // Create enhanced star field - ONLY CIRCULAR STARS, much smaller and better distributed
   const starData = useMemo(() => {
-    const count = 2500; // Optimized count
+    const count = 2000; // Optimized count
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
@@ -21,7 +21,7 @@ const SpaceObjects: React.FC = () => {
       const i3 = i * 3;
       
       // Better distribution in a huge sphere
-      const radius = 80 + Math.random() * 150;
+      const radius = 100 + Math.random() * 200;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       
@@ -48,16 +48,16 @@ const SpaceObjects: React.FC = () => {
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
       
-      // Much smaller star sizes
-      sizes[i] = Math.random() * 0.8 + 0.1;
+      // Much smaller star sizes - only circular points
+      sizes[i] = Math.random() * 0.4 + 0.1;
     }
     
     return { positions, colors, sizes };
   }, []);
   
-  // Create distant background stars - even smaller
+  // Create distant background stars - even smaller circular points
   const distantStarData = useMemo(() => {
-    const count = 1500;
+    const count = 1200;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
@@ -66,7 +66,7 @@ const SpaceObjects: React.FC = () => {
       const i3 = i * 3;
       
       // Very distant stars
-      const radius = 250 + Math.random() * 300;
+      const radius = 300 + Math.random() * 400;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       
@@ -76,11 +76,11 @@ const SpaceObjects: React.FC = () => {
       
       // Dimmer distant stars
       const color = new THREE.Color('#ffffff');
-      colors[i3] = color.r * 0.3;
-      colors[i3 + 1] = color.g * 0.3;
-      colors[i3 + 2] = color.b * 0.3;
+      colors[i3] = color.r * 0.2;
+      colors[i3 + 1] = color.g * 0.2;
+      colors[i3 + 2] = color.b * 0.2;
       
-      sizes[i] = Math.random() * 0.3 + 0.05;
+      sizes[i] = Math.random() * 0.2 + 0.05;
     }
     
     return { positions, colors, sizes };
@@ -88,7 +88,7 @@ const SpaceObjects: React.FC = () => {
   
   // Create beautiful nebula clouds - smaller and more subtle
   const nebulaData = useMemo(() => {
-    const count = 300;
+    const count = 200;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
@@ -97,25 +97,23 @@ const SpaceObjects: React.FC = () => {
       const i3 = i * 3;
       
       // Create multiple nebula clusters
-      const cluster = Math.floor(Math.random() * 4);
+      const cluster = Math.floor(Math.random() * 3);
       const clusterCenters = [
-        { x: 40, y: 25, z: -80 },   // Blue nebula
-        { x: -50, y: -20, z: -90 }, // Purple nebula
-        { x: 35, y: -35, z: -85 },  // Pink nebula
-        { x: -40, y: 30, z: -75 }   // Cyan nebula
+        { x: 50, y: 30, z: -100 },   // Blue nebula
+        { x: -60, y: -25, z: -120 }, // Purple nebula
+        { x: 40, y: -40, z: -110 }   // Pink nebula
       ];
       
       const center = clusterCenters[cluster];
-      positions[i3] = center.x + (Math.random() - 0.5) * 25;
-      positions[i3 + 1] = center.y + (Math.random() - 0.5) * 25;
-      positions[i3 + 2] = center.z + (Math.random() - 0.5) * 25;
+      positions[i3] = center.x + (Math.random() - 0.5) * 30;
+      positions[i3 + 1] = center.y + (Math.random() - 0.5) * 30;
+      positions[i3 + 2] = center.z + (Math.random() - 0.5) * 30;
       
       // Beautiful nebula colors
       const nebulaColors = [
         new THREE.Color('#4facfe'), // Blue
         new THREE.Color('#9c88ff'), // Purple
-        new THREE.Color('#ff9ff3'), // Pink
-        new THREE.Color('#0abde3')  // Cyan
+        new THREE.Color('#ff9ff3')  // Pink
       ];
       
       const color = nebulaColors[cluster];
@@ -123,7 +121,7 @@ const SpaceObjects: React.FC = () => {
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
       
-      sizes[i] = Math.random() * 2 + 0.5;
+      sizes[i] = Math.random() * 1.5 + 0.3;
     }
     
     return { positions, colors, sizes };
@@ -131,7 +129,7 @@ const SpaceObjects: React.FC = () => {
   
   // Create distant galaxy - smaller and more subtle
   const galaxyData = useMemo(() => {
-    const count = 500;
+    const count = 400;
     const positions = new Float32Array(count * 3);
     const colors = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
@@ -140,21 +138,21 @@ const SpaceObjects: React.FC = () => {
       const i3 = i * 3;
       
       // Spiral galaxy pattern
-      const angle = (i / count) * Math.PI * 6; // 3 spiral arms
-      const radius = (i / count) * 20 + 3;
-      const spiralOffset = Math.sin(angle * 2) * 2;
+      const angle = (i / count) * Math.PI * 8; // 4 spiral arms
+      const radius = (i / count) * 25 + 5;
+      const spiralOffset = Math.sin(angle * 3) * 3;
       
-      positions[i3] = Math.cos(angle) * radius + spiralOffset + 70;
-      positions[i3 + 1] = (Math.random() - 0.5) * 3 - 25;
-      positions[i3 + 2] = Math.sin(angle) * radius + spiralOffset - 120;
+      positions[i3] = Math.cos(angle) * radius + spiralOffset + 80;
+      positions[i3 + 1] = (Math.random() - 0.5) * 4 - 30;
+      positions[i3 + 2] = Math.sin(angle) * radius + spiralOffset - 150;
       
       // Galaxy colors
-      const color = new THREE.Color().setHSL(0.6 + Math.random() * 0.2, 0.7, 0.5);
+      const color = new THREE.Color().setHSL(0.6 + Math.random() * 0.2, 0.8, 0.6);
       colors[i3] = color.r;
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
       
-      sizes[i] = Math.random() * 0.5 + 0.1;
+      sizes[i] = Math.random() * 0.3 + 0.05;
     }
     
     return { positions, colors, sizes };
@@ -163,18 +161,18 @@ const SpaceObjects: React.FC = () => {
   // Create asteroid belt
   const asteroidData = useMemo(() => {
     const asteroids = [];
-    for (let i = 0; i < 40; i++) {
-      const angle = (i / 40) * Math.PI * 2;
-      const radius = 25 + Math.random() * 6;
+    for (let i = 0; i < 50; i++) {
+      const angle = (i / 50) * Math.PI * 2;
+      const radius = 28 + Math.random() * 8;
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      const y = (Math.random() - 0.5) * 3;
+      const y = (Math.random() - 0.5) * 4;
       
       asteroids.push({
         position: [x, y, z],
         rotation: [Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI],
-        scale: Math.random() * 0.3 + 0.08,
-        speed: Math.random() * 0.006 + 0.002
+        scale: Math.random() * 0.4 + 0.1,
+        speed: Math.random() * 0.008 + 0.003
       });
     }
     return asteroids;
@@ -185,82 +183,82 @@ const SpaceObjects: React.FC = () => {
     
     // Animate black hole
     if (blackHoleRef.current) {
-      blackHoleRef.current.rotation.z += 0.01;
+      blackHoleRef.current.rotation.z += 0.015;
       
       // Subtle pulsing effect
-      const scale = 1 + Math.sin(time * 1.2) * 0.1;
+      const scale = 1 + Math.sin(time * 1.5) * 0.15;
       blackHoleRef.current.scale.setScalar(scale);
     }
     
     // Animate asteroid belt
     if (asteroidBeltRef.current) {
-      asteroidBeltRef.current.rotation.y += 0.001;
+      asteroidBeltRef.current.rotation.y += 0.002;
       
       asteroidBeltRef.current.children.forEach((asteroid, index) => {
         asteroid.rotation.x += asteroidData[index].speed;
-        asteroid.rotation.y += asteroidData[index].speed * 0.7;
-        asteroid.rotation.z += asteroidData[index].speed * 0.5;
+        asteroid.rotation.y += asteroidData[index].speed * 0.8;
+        asteroid.rotation.z += asteroidData[index].speed * 0.6;
       });
     }
     
-    // Animate stars - subtle twinkling
+    // Animate stars - subtle twinkling, ONLY circular points
     if (starsRef.current) {
       const material = starsRef.current.material as THREE.PointsMaterial;
-      material.opacity = 0.7 + Math.sin(time * 0.3) * 0.1;
-      starsRef.current.rotation.y += 0.00005;
+      material.opacity = 0.8 + Math.sin(time * 0.4) * 0.15;
+      starsRef.current.rotation.y += 0.00008;
     }
     
     // Animate distant stars
     if (distantStarsRef.current) {
-      distantStarsRef.current.rotation.y += 0.00002;
+      distantStarsRef.current.rotation.y += 0.00003;
       const material = distantStarsRef.current.material as THREE.PointsMaterial;
-      material.opacity = 0.3 + Math.sin(time * 0.2) * 0.05;
+      material.opacity = 0.2 + Math.sin(time * 0.25) * 0.08;
     }
     
     // Animate nebula
     if (nebulaRef.current) {
-      nebulaRef.current.rotation.y += 0.0002;
-      nebulaRef.current.rotation.x += 0.00008;
+      nebulaRef.current.rotation.y += 0.0003;
+      nebulaRef.current.rotation.x += 0.0001;
       const material = nebulaRef.current.material as THREE.PointsMaterial;
-      material.opacity = 0.2 + Math.sin(time * 0.3) * 0.1;
+      material.opacity = 0.25 + Math.sin(time * 0.4) * 0.15;
     }
     
     // Animate galaxy
     if (galaxyRef.current) {
-      galaxyRef.current.rotation.z += 0.0001;
+      galaxyRef.current.rotation.z += 0.0002;
       const material = galaxyRef.current.material as THREE.PointsMaterial;
-      material.opacity = 0.4 + Math.sin(time * 0.4) * 0.15;
+      material.opacity = 0.5 + Math.sin(time * 0.5) * 0.2;
     }
   });
 
   return (
     <>
-      {/* Main Star Field - Smaller and Better */}
+      {/* Main Star Field - Smaller circular points only */}
       <points ref={starsRef}>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={2500}
+            count={2000}
             array={starData.positions}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-color"
-            count={2500}
+            count={2000}
             array={starData.colors}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-size"
-            count={2500}
+            count={2000}
             array={starData.sizes}
             itemSize={1}
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.6}
+          size={0.4}
           transparent
-          opacity={0.7}
+          opacity={0.8}
           sizeAttenuation
           vertexColors
           blending={THREE.AdditiveBlending}
@@ -268,32 +266,32 @@ const SpaceObjects: React.FC = () => {
         />
       </points>
       
-      {/* Distant Background Stars - Even Smaller */}
+      {/* Distant Background Stars - Even smaller circular points */}
       <points ref={distantStarsRef}>
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={1500}
+            count={1200}
             array={distantStarData.positions}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-color"
-            count={1500}
+            count={1200}
             array={distantStarData.colors}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-size"
-            count={1500}
+            count={1200}
             array={distantStarData.sizes}
             itemSize={1}
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.3}
+          size={0.2}
           transparent
-          opacity={0.3}
+          opacity={0.2}
           sizeAttenuation
           vertexColors
           blending={THREE.AdditiveBlending}
@@ -306,27 +304,27 @@ const SpaceObjects: React.FC = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={300}
+            count={200}
             array={nebulaData.positions}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-color"
-            count={300}
+            count={200}
             array={nebulaData.colors}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-size"
-            count={300}
+            count={200}
             array={nebulaData.sizes}
             itemSize={1}
           />
         </bufferGeometry>
         <pointsMaterial
-          size={1.5}
+          size={1.2}
           transparent
-          opacity={0.2}
+          opacity={0.25}
           sizeAttenuation
           vertexColors
           blending={THREE.AdditiveBlending}
@@ -339,27 +337,27 @@ const SpaceObjects: React.FC = () => {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={500}
+            count={400}
             array={galaxyData.positions}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-color"
-            count={500}
+            count={400}
             array={galaxyData.colors}
             itemSize={3}
           />
           <bufferAttribute
             attach="attributes-size"
-            count={500}
+            count={400}
             array={galaxyData.sizes}
             itemSize={1}
           />
         </bufferGeometry>
         <pointsMaterial
-          size={0.8}
+          size={0.6}
           transparent
-          opacity={0.4}
+          opacity={0.5}
           sizeAttenuation
           vertexColors
           blending={THREE.AdditiveBlending}
@@ -368,48 +366,48 @@ const SpaceObjects: React.FC = () => {
       </points>
       
       {/* Black Hole - More Subtle */}
-      <group ref={blackHoleRef} position={[-60, 15, -120]}>
+      <group ref={blackHoleRef} position={[-70, 20, -140]}>
         {/* Event Horizon */}
         <mesh>
-          <sphereGeometry args={[2, 32, 32]} />
+          <sphereGeometry args={[2.5, 32, 32]} />
           <meshBasicMaterial color="#000000" />
         </mesh>
         
         {/* Accretion Disk - More Subtle */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[2.5, 6, 64]} />
+          <ringGeometry args={[3, 7, 64]} />
           <meshBasicMaterial 
             color="#ff6b6b" 
             transparent 
-            opacity={0.6} 
+            opacity={0.7} 
             side={THREE.DoubleSide}
           />
         </mesh>
         
         {/* Outer Disk */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <ringGeometry args={[6.5, 9, 64]} />
+          <ringGeometry args={[7.5, 11, 64]} />
           <meshBasicMaterial 
             color="#ffaa00" 
             transparent 
-            opacity={0.3} 
+            opacity={0.4} 
             side={THREE.DoubleSide}
           />
         </mesh>
         
         {/* Gravitational Lensing Effect */}
         <mesh>
-          <sphereGeometry args={[10, 32, 32]} />
+          <sphereGeometry args={[12, 32, 32]} />
           <meshBasicMaterial 
             color="#4facfe" 
             transparent 
-            opacity={0.05} 
+            opacity={0.06} 
             side={THREE.BackSide}
           />
         </mesh>
       </group>
       
-      {/* Asteroid Belt - Smaller */}
+      {/* Enhanced Asteroid Belt */}
       <group ref={asteroidBeltRef}>
         {asteroidData.map((asteroid, index) => (
           <mesh 
@@ -418,76 +416,84 @@ const SpaceObjects: React.FC = () => {
             rotation={asteroid.rotation}
             scale={asteroid.scale}
           >
-            <dodecahedronGeometry args={[1, 0]} />
+            <dodecahedronGeometry args={[1, 1]} />
             <meshStandardMaterial 
               color="#8B7355" 
-              roughness={0.9} 
-              metalness={0.1} 
-              emissive="#4a3728"
-              emissiveIntensity={0.05}
+              roughness={0.95} 
+              metalness={0.05} 
+              emissive="#3a2f28"
+              emissiveIntensity={0.08}
             />
           </mesh>
         ))}
       </group>
       
-      {/* Pulsar - More Subtle */}
-      <group position={[45, 60, -140]}>
+      {/* Enhanced Pulsar */}
+      <group position={[50, 70, -160]}>
         <mesh>
-          <sphereGeometry args={[0.6, 16, 16]} />
-          <meshBasicMaterial color="#ffffff" />
+          <sphereGeometry args={[0.8, 16, 16]} />
+          <meshBasicMaterial 
+            color="#ffffff"
+            emissive="#ffffff"
+            emissiveIntensity={0.5}
+          />
         </mesh>
-        {/* Subtle Pulsar beams */}
+        {/* Pulsar beams */}
         <mesh rotation={[0, 0, 0]}>
-          <cylinderGeometry args={[0.05, 0.05, 30, 8]} />
+          <cylinderGeometry args={[0.08, 0.08, 40, 8]} />
           <meshBasicMaterial 
             color="#00ffff" 
             transparent 
-            opacity={0.5} 
+            opacity={0.6} 
           />
         </mesh>
         <mesh rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.05, 0.05, 30, 8]} />
+          <cylinderGeometry args={[0.08, 0.08, 40, 8]} />
           <meshBasicMaterial 
             color="#00ffff" 
+            transparent 
+            opacity={0.6} 
+          />
+        </mesh>
+      </group>
+      
+      {/* Enhanced Wormhole */}
+      <group position={[80, -50, -180]}>
+        <mesh>
+          <torusGeometry args={[4, 1.5, 16, 32]} />
+          <meshBasicMaterial 
+            color="#9c88ff" 
             transparent 
             opacity={0.5} 
           />
         </mesh>
-      </group>
-      
-      {/* Wormhole - More Subtle */}
-      <group position={[70, -40, -150]}>
         <mesh>
-          <torusGeometry args={[3, 1, 16, 32]} />
-          <meshBasicMaterial 
-            color="#9c88ff" 
-            transparent 
-            opacity={0.4} 
-          />
-        </mesh>
-        <mesh>
-          <torusGeometry args={[4.5, 0.6, 16, 32]} />
+          <torusGeometry args={[6, 1, 16, 32]} />
           <meshBasicMaterial 
             color="#ff9ff3" 
             transparent 
-            opacity={0.2} 
+            opacity={0.3} 
           />
         </mesh>
       </group>
       
-      {/* Comet - Smaller */}
-      <group position={[-70, 30, -100]}>
+      {/* Enhanced Comet */}
+      <group position={[-80, 40, -120]}>
         <mesh>
-          <sphereGeometry args={[0.3, 16, 16]} />
-          <meshBasicMaterial color="#ffffff" />
+          <sphereGeometry args={[0.4, 16, 16]} />
+          <meshBasicMaterial 
+            color="#ffffff"
+            emissive="#ffffff"
+            emissiveIntensity={0.3}
+          />
         </mesh>
         {/* Comet tail */}
         <mesh rotation={[0, 0, Math.PI / 4]}>
-          <coneGeometry args={[0.8, 12, 8]} />
+          <coneGeometry args={[1.2, 18, 8]} />
           <meshBasicMaterial 
             color="#87ceeb" 
             transparent 
-            opacity={0.4} 
+            opacity={0.5} 
           />
         </mesh>
       </group>

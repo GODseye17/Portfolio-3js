@@ -200,19 +200,59 @@ canvas {
   }
 }
 
-/* Responsive */
+/* Mobile Responsive */
 @media (max-width: 768px) {
   .font-display {
-    font-size: 3rem;
-  }
-  
-  nav {
-    right: 1rem !important;
+    font-size: 2.5rem;
   }
   
   /* Show default cursor on touch devices */
   body {
     cursor: default;
+  }
+  
+  /* Mobile navigation adjustments */
+  .mobile-nav-open {
+    overflow: hidden;
+  }
+  
+  /* Ensure text is readable on mobile */
+  h1 {
+    font-size: 2.5rem !important;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+    line-height: 1.3;
+  }
+  
+  /* Mobile spacing adjustments */
+  .mobile-spacing {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .font-display {
+    font-size: 2rem;
+  }
+  
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  /* Smaller mobile devices */
+  .text-4xl {
+    font-size: 2rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 1.75rem !important;
   }
 }
 
@@ -220,6 +260,11 @@ canvas {
 @media (pointer: coarse) {
   body {
     cursor: default !important;
+  }
+  
+  /* Hide custom cursor elements on touch devices */
+  .cursor-custom {
+    display: none !important;
   }
 }
 
@@ -271,4 +316,31 @@ button:hover, a:hover, [role="button"]:hover, .interactive:hover {
 
 .cursor-visible {
   cursor: default !important;
+}
+
+/* Mobile hamburger menu animations */
+@media (max-width: 768px) {
+  .hamburger-line {
+    transition: all 0.3s ease;
+  }
+  
+  .hamburger-open .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  
+  .hamburger-open .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .hamburger-open .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+  }
+}
+
+/* Improved mobile touch targets */
+@media (max-width: 768px) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
