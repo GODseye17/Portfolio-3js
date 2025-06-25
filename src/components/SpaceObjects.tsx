@@ -201,146 +201,66 @@ const SpaceObjects: React.FC = () => {
       });
     }
     
-    // Animate stars - subtle twinkling, ONLY circular points with debugging
-    if (starsRef.current) {
-      // DEBUG: Check stars material
-      if (!starsRef.current.material) {
-        console.warn('Stars material is null/undefined');
-      } else {
-        const material = starsRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in material) {
-          console.log('Stars material has uniforms:', material.uniforms);
-          
-          if (material.uniforms) {
-            Object.keys(material.uniforms).forEach(uniformName => {
-              const uniform = material.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Stars uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Stars uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
+    // Animate stars - subtle twinkling, ONLY circular points
+    if (starsRef.current && starsRef.current.material) {
+      const material = starsRef.current.material as THREE.PointsMaterial;
+      
+      // Safely set opacity
+      try {
+        if ('opacity' in material) {
+          material.opacity = 0.8 + Math.sin(time * 0.4) * 0.15;
         }
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in material) {
-            material.opacity = 0.8 + Math.sin(time * 0.4) * 0.15;
-          }
-        } catch (error) {
-          console.error('Error setting stars opacity:', error);
-        }
+      } catch (error) {
+        console.error('Error setting stars opacity:', error);
       }
       
       starsRef.current.rotation.y += 0.00008;
     }
     
-    // Animate distant stars with debugging
-    if (distantStarsRef.current) {
-      // DEBUG: Check distant stars material
-      if (!distantStarsRef.current.material) {
-        console.warn('Distant stars material is null/undefined');
-      } else {
-        const material = distantStarsRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in material) {
-          console.log('Distant stars material has uniforms:', material.uniforms);
-          
-          if (material.uniforms) {
-            Object.keys(material.uniforms).forEach(uniformName => {
-              const uniform = material.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Distant stars uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Distant stars uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
+    // Animate distant stars
+    if (distantStarsRef.current && distantStarsRef.current.material) {
+      const material = distantStarsRef.current.material as THREE.PointsMaterial;
+      
+      // Safely set opacity
+      try {
+        if ('opacity' in material) {
+          material.opacity = 0.2 + Math.sin(time * 0.25) * 0.08;
         }
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in material) {
-            material.opacity = 0.2 + Math.sin(time * 0.25) * 0.08;
-          }
-        } catch (error) {
-          console.error('Error setting distant stars opacity:', error);
-        }
+      } catch (error) {
+        console.error('Error setting distant stars opacity:', error);
       }
       
       distantStarsRef.current.rotation.y += 0.00003;
     }
     
-    // Animate nebula with debugging
-    if (nebulaRef.current) {
-      // DEBUG: Check nebula material
-      if (!nebulaRef.current.material) {
-        console.warn('Nebula material is null/undefined');
-      } else {
-        const material = nebulaRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in material) {
-          console.log('Nebula material has uniforms:', material.uniforms);
-          
-          if (material.uniforms) {
-            Object.keys(material.uniforms).forEach(uniformName => {
-              const uniform = material.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Nebula uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Nebula uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
+    // Animate nebula
+    if (nebulaRef.current && nebulaRef.current.material) {
+      const material = nebulaRef.current.material as THREE.PointsMaterial;
+      
+      // Safely set opacity
+      try {
+        if ('opacity' in material) {
+          material.opacity = 0.25 + Math.sin(time * 0.4) * 0.15;
         }
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in material) {
-            material.opacity = 0.25 + Math.sin(time * 0.4) * 0.15;
-          }
-        } catch (error) {
-          console.error('Error setting nebula opacity:', error);
-        }
+      } catch (error) {
+        console.error('Error setting nebula opacity:', error);
       }
       
       nebulaRef.current.rotation.y += 0.0003;
       nebulaRef.current.rotation.x += 0.0001;
     }
     
-    // Animate galaxy with debugging
-    if (galaxyRef.current) {
-      // DEBUG: Check galaxy material
-      if (!galaxyRef.current.material) {
-        console.warn('Galaxy material is null/undefined');
-      } else {
-        const material = galaxyRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in material) {
-          console.log('Galaxy material has uniforms:', material.uniforms);
-          
-          if (material.uniforms) {
-            Object.keys(material.uniforms).forEach(uniformName => {
-              const uniform = material.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Galaxy uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Galaxy uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
+    // Animate galaxy
+    if (galaxyRef.current && galaxyRef.current.material) {
+      const material = galaxyRef.current.material as THREE.PointsMaterial;
+      
+      // Safely set opacity
+      try {
+        if ('opacity' in material) {
+          material.opacity = 0.5 + Math.sin(time * 0.5) * 0.2;
         }
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in material) {
-            material.opacity = 0.5 + Math.sin(time * 0.5) * 0.2;
-          }
-        } catch (error) {
-          console.error('Error setting galaxy opacity:', error);
-        }
+      } catch (error) {
+        console.error('Error setting galaxy opacity:', error);
       }
       
       galaxyRef.current.rotation.z += 0.0002;

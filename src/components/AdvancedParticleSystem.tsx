@@ -95,37 +95,17 @@ const AdvancedParticleSystem: React.FC<AdvancedParticleSystemProps> = ({
   useFrame((state) => {
     const time = state.clock.elapsedTime;
     
-    // Simple particle animation with debugging
+    // Simple particle animation
     if (particlesRef.current) {
-      // DEBUG: Check particles material
-      if (!particlesRef.current.material) {
-        console.warn('Particles material is null/undefined');
-      } else {
-        const material = particlesRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in material) {
-          console.log('Particles material has uniforms:', material.uniforms);
-          
-          if (material.uniforms) {
-            Object.keys(material.uniforms).forEach(uniformName => {
-              const uniform = material.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Particles uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Particles uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
+      const material = particlesRef.current.material as THREE.PointsMaterial;
+      
+      // Safely set opacity
+      try {
+        if ('opacity' in material) {
+          material.opacity = 0.2 + Math.sin(time * 0.3) * 0.05;
         }
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in material) {
-            material.opacity = 0.2 + Math.sin(time * 0.3) * 0.05;
-          }
-        } catch (error) {
-          console.error('Error setting particles opacity:', error);
-        }
+      } catch (error) {
+        console.error('Error setting particles opacity:', error);
       }
       
       particlesRef.current.rotation.y += 0.0001; // Very slow
@@ -146,37 +126,17 @@ const AdvancedParticleSystem: React.FC<AdvancedParticleSystemProps> = ({
       }
     }
     
-    // Simple nebula animation with debugging
+    // Simple nebula animation
     if (nebulaRef.current) {
-      // DEBUG: Check nebula material
-      if (!nebulaRef.current.material) {
-        console.warn('Nebula particles material is null/undefined');
-      } else {
-        const material = nebulaRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in material) {
-          console.log('Nebula particles material has uniforms:', material.uniforms);
-          
-          if (material.uniforms) {
-            Object.keys(material.uniforms).forEach(uniformName => {
-              const uniform = material.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Nebula particles uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Nebula particles uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
+      const material = nebulaRef.current.material as THREE.PointsMaterial;
+      
+      // Safely set opacity
+      try {
+        if ('opacity' in material) {
+          material.opacity = 0.1 + Math.sin(time * 0.2) * 0.03;
         }
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in material) {
-            material.opacity = 0.1 + Math.sin(time * 0.2) * 0.03;
-          }
-        } catch (error) {
-          console.error('Error setting nebula particles opacity:', error);
-        }
+      } catch (error) {
+        console.error('Error setting nebula particles opacity:', error);
       }
       
       nebulaRef.current.rotation.y += 0.00002;

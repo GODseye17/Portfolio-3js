@@ -59,36 +59,16 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
     
     const time = state.clock.elapsedTime;
     
-    // Update antenna light blinking effect with debugging
+    // Update antenna light blinking effect
     if (antennaLightMaterialRef.current) {
-      // DEBUG: Check antenna light material
-      const antennaLightMaterial = antennaLightMaterialRef.current;
-      
-      if ('uniforms' in antennaLightMaterial) {
-        console.log('Antenna light material has uniforms:', antennaLightMaterial.uniforms);
-        
-        if (antennaLightMaterial.uniforms) {
-          Object.keys(antennaLightMaterial.uniforms).forEach(uniformName => {
-            const uniform = antennaLightMaterial.uniforms[uniformName];
-            if (!uniform) {
-              console.error(`Antenna light uniform '${uniformName}' is undefined`);
-            } else if (uniform.value === undefined) {
-              console.error(`Antenna light uniform '${uniformName}'.value is undefined`);
-            }
-          });
-        }
-      }
-      
       // Safely set opacity
       try {
-        if ('opacity' in antennaLightMaterial) {
-          antennaLightMaterial.opacity = 0.5 + Math.sin(time * 5) * 0.5;
+        if ('opacity' in antennaLightMaterialRef.current) {
+          antennaLightMaterialRef.current.opacity = 0.5 + Math.sin(time * 5) * 0.5;
         }
       } catch (error) {
         console.error('Error setting antenna light opacity:', error);
       }
-    } else {
-      console.warn('antennaLightMaterialRef.current is null/undefined');
     }
     
     // Get camera direction
@@ -123,75 +103,33 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
     astronautRef.current.rotation.z = velocity.x * 0.4;
     astronautRef.current.rotation.x += Math.sin(time * 3.5) * 0.015;
     
-    // Enhanced jetpack flames during transitions with debugging
+    // Enhanced jetpack flames during transitions
     if (jetpackRef.current) {
       const flameScale = isTransitioning ? 2 : 1.2;
       jetpackRef.current.scale.setScalar(flameScale);
       
-      // Enhanced jetpack glow with debugging
+      // Enhanced jetpack glow
       const jetpackFlames = jetpackRef.current.children;
       jetpackFlames.forEach((flame, index) => {
-        if (flame instanceof THREE.Mesh) {
-          if (!flame.material) {
-            console.warn(`Jetpack flame ${index}: material is null/undefined`);
-          } else {
-            const material = flame.material as THREE.MeshBasicMaterial;
-            
-            // DEBUG: Check flame material uniforms
-            if ('uniforms' in material) {
-              console.log(`Jetpack flame ${index} material has uniforms:`, material.uniforms);
-              
-              if (material.uniforms) {
-                Object.keys(material.uniforms).forEach(uniformName => {
-                  const uniform = material.uniforms[uniformName];
-                  if (!uniform) {
-                    console.error(`Jetpack flame ${index} uniform '${uniformName}' is undefined`);
-                  } else if (uniform.value === undefined) {
-                    console.error(`Jetpack flame ${index} uniform '${uniformName}'.value is undefined`);
-                  }
-                });
-              }
+        if (flame instanceof THREE.Mesh && flame.material) {
+          const material = flame.material as THREE.MeshBasicMaterial;
+          
+          // Safely set opacity
+          try {
+            if ('opacity' in material) {
+              material.opacity = isTransitioning 
+                ? 0.95 + Math.sin(time * 12 + index) * 0.05
+                : 0.8 + Math.sin(time * 6 + index) * 0.2;
             }
-            
-            // Safely set opacity
-            try {
-              if ('opacity' in material) {
-                material.opacity = isTransitioning 
-                  ? 0.95 + Math.sin(time * 12 + index) * 0.05
-                  : 0.8 + Math.sin(time * 6 + index) * 0.2;
-              }
-            } catch (error) {
-              console.error(`Error setting jetpack flame ${index} opacity:`, error);
-            }
+          } catch (error) {
+            console.error(`Error setting jetpack flame ${index} opacity:`, error);
           }
         }
       });
     }
     
-    // Enhanced particle trail with debugging
+    // Enhanced particle trail
     if (trailRef.current) {
-      // DEBUG: Check trail material
-      if (!trailRef.current.material) {
-        console.warn('Trail material is null/undefined');
-      } else {
-        const trailMaterial = trailRef.current.material as THREE.PointsMaterial;
-        
-        if ('uniforms' in trailMaterial) {
-          console.log('Trail material has uniforms:', trailMaterial.uniforms);
-          
-          if (trailMaterial.uniforms) {
-            Object.keys(trailMaterial.uniforms).forEach(uniformName => {
-              const uniform = trailMaterial.uniforms[uniformName];
-              if (!uniform) {
-                console.error(`Trail uniform '${uniformName}' is undefined`);
-              } else if (uniform.value === undefined) {
-                console.error(`Trail uniform '${uniformName}'.value is undefined`);
-              }
-            });
-          }
-        }
-      }
-      
       // Safely update particle positions
       try {
         const positions = trailRef.current.geometry.attributes.position.array as Float32Array;
