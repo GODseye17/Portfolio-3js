@@ -123,32 +123,121 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
         planetGroup.position.z = planet.position[2] + Math.cos(orbitSpeed) * ellipseB;
       }
       
-      // Enhanced glow and pulsing effects for active planet
+      // Enhanced glow and pulsing effects for active planet with debugging
       const isActive = currentSection === index;
       const planetMesh = planetGroup.children[0] as THREE.Mesh;
-      if (planetMesh && planetMesh.material) {
-        const material = planetMesh.material as THREE.MeshStandardMaterial;
-        material.emissiveIntensity = isActive ? 1.2 + Math.sin(time * 2) * 0.3 : 0.4;
+      
+      // DEBUG: Check planetMesh and its material
+      if (planetMesh) {
+        if (!planetMesh.material) {
+          console.warn(`Planet ${index} (${planet.name}): planetMesh.material is null/undefined`);
+        } else {
+          const material = planetMesh.material as THREE.MeshStandardMaterial;
+          
+          // DEBUG: Check if material has uniforms property
+          if ('uniforms' in material) {
+            console.log(`Planet ${index} (${planet.name}): Material has uniforms:`, material.uniforms);
+            
+            // Check each uniform for undefined values
+            if (material.uniforms) {
+              Object.keys(material.uniforms).forEach(uniformName => {
+                const uniform = material.uniforms[uniformName];
+                if (!uniform) {
+                  console.error(`Planet ${index} (${planet.name}): Uniform '${uniformName}' is undefined`);
+                } else if (uniform.value === undefined) {
+                  console.error(`Planet ${index} (${planet.name}): Uniform '${uniformName}'.value is undefined`);
+                }
+              });
+            }
+          }
+          
+          // Safely set emissiveIntensity
+          try {
+            if ('emissiveIntensity' in material) {
+              material.emissiveIntensity = isActive ? 1.2 + Math.sin(time * 2) * 0.3 : 0.4;
+            }
+          } catch (error) {
+            console.error(`Planet ${index} (${planet.name}): Error setting emissiveIntensity:`, error);
+          }
+        }
+      } else {
+        console.warn(`Planet ${index} (${planet.name}): planetMesh is null/undefined`);
       }
       
-      // Enhanced atmosphere effects
+      // Enhanced atmosphere effects with debugging
       const atmosphere = planetGroup.children.find(child => child.name === 'atmosphere') as THREE.Mesh;
-      if (atmosphere && atmosphere.material) {
-        const atmosphereMaterial = atmosphere.material as THREE.MeshBasicMaterial;
-        atmosphereMaterial.opacity = isActive 
-          ? 0.7 + Math.sin(time * 2.5) * 0.2 
-          : 0.4 + Math.sin(time * 1.2) * 0.1;
+      if (atmosphere) {
+        if (!atmosphere.material) {
+          console.warn(`Planet ${index} (${planet.name}): atmosphere.material is null/undefined`);
+        } else {
+          const atmosphereMaterial = atmosphere.material as THREE.MeshBasicMaterial;
+          
+          // DEBUG: Check atmosphere material uniforms
+          if ('uniforms' in atmosphereMaterial) {
+            console.log(`Planet ${index} (${planet.name}): Atmosphere material has uniforms:`, atmosphereMaterial.uniforms);
+            
+            if (atmosphereMaterial.uniforms) {
+              Object.keys(atmosphereMaterial.uniforms).forEach(uniformName => {
+                const uniform = atmosphereMaterial.uniforms[uniformName];
+                if (!uniform) {
+                  console.error(`Planet ${index} (${planet.name}): Atmosphere uniform '${uniformName}' is undefined`);
+                } else if (uniform.value === undefined) {
+                  console.error(`Planet ${index} (${planet.name}): Atmosphere uniform '${uniformName}'.value is undefined`);
+                }
+              });
+            }
+          }
+          
+          // Safely set opacity
+          try {
+            if ('opacity' in atmosphereMaterial) {
+              atmosphereMaterial.opacity = isActive 
+                ? 0.7 + Math.sin(time * 2.5) * 0.2 
+                : 0.4 + Math.sin(time * 1.2) * 0.1;
+            }
+          } catch (error) {
+            console.error(`Planet ${index} (${planet.name}): Error setting atmosphere opacity:`, error);
+          }
+        }
       }
       
-      // Enhanced multi-layer glow system
+      // Enhanced multi-layer glow system with debugging
       const glowLayers = ['outerGlow', 'farGlow', 'ultraGlow'];
       glowLayers.forEach((glowName, glowIndex) => {
         const glow = planetGroup.children.find(child => child.name === glowName) as THREE.Mesh;
-        if (glow && glow.material) {
-          const glowMaterial = glow.material as THREE.MeshBasicMaterial;
-          const baseOpacity = isActive ? 0.4 : 0.15;
-          const pulseIntensity = isActive ? 0.2 : 0.08;
-          glowMaterial.opacity = baseOpacity + Math.sin(time * (1.8 - glowIndex * 0.3)) * pulseIntensity;
+        if (glow) {
+          if (!glow.material) {
+            console.warn(`Planet ${index} (${planet.name}): ${glowName}.material is null/undefined`);
+          } else {
+            const glowMaterial = glow.material as THREE.MeshBasicMaterial;
+            
+            // DEBUG: Check glow material uniforms
+            if ('uniforms' in glowMaterial) {
+              console.log(`Planet ${index} (${planet.name}): ${glowName} material has uniforms:`, glowMaterial.uniforms);
+              
+              if (glowMaterial.uniforms) {
+                Object.keys(glowMaterial.uniforms).forEach(uniformName => {
+                  const uniform = glowMaterial.uniforms[uniformName];
+                  if (!uniform) {
+                    console.error(`Planet ${index} (${planet.name}): ${glowName} uniform '${uniformName}' is undefined`);
+                  } else if (uniform.value === undefined) {
+                    console.error(`Planet ${index} (${planet.name}): ${glowName} uniform '${uniformName}'.value is undefined`);
+                  }
+                });
+              }
+            }
+            
+            // Safely set opacity
+            try {
+              if ('opacity' in glowMaterial) {
+                const baseOpacity = isActive ? 0.4 : 0.15;
+                const pulseIntensity = isActive ? 0.2 : 0.08;
+                glowMaterial.opacity = baseOpacity + Math.sin(time * (1.8 - glowIndex * 0.3)) * pulseIntensity;
+              }
+            } catch (error) {
+              console.error(`Planet ${index} (${planet.name}): Error setting ${glowName} opacity:`, error);
+            }
+          }
         }
       });
     });

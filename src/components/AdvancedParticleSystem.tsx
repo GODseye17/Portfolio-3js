@@ -95,31 +95,91 @@ const AdvancedParticleSystem: React.FC<AdvancedParticleSystemProps> = ({
   useFrame((state) => {
     const time = state.clock.elapsedTime;
     
-    // Simple particle animation
+    // Simple particle animation with debugging
     if (particlesRef.current) {
-      particlesRef.current.rotation.y += 0.0001; // Very slow
+      // DEBUG: Check particles material
+      if (!particlesRef.current.material) {
+        console.warn('Particles material is null/undefined');
+      } else {
+        const material = particlesRef.current.material as THREE.PointsMaterial;
+        
+        if ('uniforms' in material) {
+          console.log('Particles material has uniforms:', material.uniforms);
+          
+          if (material.uniforms) {
+            Object.keys(material.uniforms).forEach(uniformName => {
+              const uniform = material.uniforms[uniformName];
+              if (!uniform) {
+                console.error(`Particles uniform '${uniformName}' is undefined`);
+              } else if (uniform.value === undefined) {
+                console.error(`Particles uniform '${uniformName}'.value is undefined`);
+              }
+            });
+          }
+        }
+        
+        // Safely set opacity
+        try {
+          if ('opacity' in material) {
+            material.opacity = 0.2 + Math.sin(time * 0.3) * 0.05;
+          }
+        } catch (error) {
+          console.error('Error setting particles opacity:', error);
+        }
+      }
       
-      // Gentle twinkling
-      const material = particlesRef.current.material as THREE.PointsMaterial;
-      material.opacity = 0.2 + Math.sin(time * 0.3) * 0.05;
+      particlesRef.current.rotation.y += 0.0001; // Very slow
       
       // Minimal movement during transitions
       if (isTransitioning) {
-        const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
-        for (let i = 0; i < positions.length; i += 3) {
-          positions[i] += velocities[i / 3 * 3] * 1;
-          positions[i + 1] += velocities[i / 3 * 3 + 1] * 1;
-          positions[i + 2] += velocities[i / 3 * 3 + 2] * 1;
+        try {
+          const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+          for (let i = 0; i < positions.length; i += 3) {
+            positions[i] += velocities[i / 3 * 3] * 1;
+            positions[i + 1] += velocities[i / 3 * 3 + 1] * 1;
+            positions[i + 2] += velocities[i / 3 * 3 + 2] * 1;
+          }
+          particlesRef.current.geometry.attributes.position.needsUpdate = true;
+        } catch (error) {
+          console.error('Error updating particle positions:', error);
         }
-        particlesRef.current.geometry.attributes.position.needsUpdate = true;
       }
     }
     
-    // Simple nebula animation
+    // Simple nebula animation with debugging
     if (nebulaRef.current) {
+      // DEBUG: Check nebula material
+      if (!nebulaRef.current.material) {
+        console.warn('Nebula particles material is null/undefined');
+      } else {
+        const material = nebulaRef.current.material as THREE.PointsMaterial;
+        
+        if ('uniforms' in material) {
+          console.log('Nebula particles material has uniforms:', material.uniforms);
+          
+          if (material.uniforms) {
+            Object.keys(material.uniforms).forEach(uniformName => {
+              const uniform = material.uniforms[uniformName];
+              if (!uniform) {
+                console.error(`Nebula particles uniform '${uniformName}' is undefined`);
+              } else if (uniform.value === undefined) {
+                console.error(`Nebula particles uniform '${uniformName}'.value is undefined`);
+              }
+            });
+          }
+        }
+        
+        // Safely set opacity
+        try {
+          if ('opacity' in material) {
+            material.opacity = 0.1 + Math.sin(time * 0.2) * 0.03;
+          }
+        } catch (error) {
+          console.error('Error setting nebula particles opacity:', error);
+        }
+      }
+      
       nebulaRef.current.rotation.y += 0.00002;
-      const material = nebulaRef.current.material as THREE.PointsMaterial;
-      material.opacity = 0.1 + Math.sin(time * 0.2) * 0.03;
     }
   });
   
