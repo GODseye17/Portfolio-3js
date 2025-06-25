@@ -14,6 +14,7 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
   const astronautRef = useRef<THREE.Group>(null);
   const jetpackRef = useRef<THREE.Group>(null);
   const trailRef = useRef<THREE.Points>(null);
+  const antennaLightMaterialRef = useRef<THREE.MeshBasicMaterial>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   // Jetpack particle trail
@@ -57,6 +58,11 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
     if (!astronautRef.current) return;
     
     const time = state.clock.elapsedTime;
+    
+    // Update antenna light blinking effect
+    if (antennaLightMaterialRef.current) {
+      antennaLightMaterialRef.current.opacity = 0.5 + Math.sin(time * 5) * 0.5;
+    }
     
     // Get camera direction
     const cameraDirection = new THREE.Vector3();
@@ -316,9 +322,12 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
       </mesh>
       <mesh position={[0, 0.72, 0]}>
         <sphereGeometry args={[0.03, 8, 8]} />
-        <meshBasicMaterial color="#ff6b6b">
-          <primitive attach="opacity" value={0.5 + Math.sin(Date.now() * 0.005) * 0.5} />
-        </meshBasicMaterial>
+        <meshBasicMaterial 
+          ref={antennaLightMaterialRef}
+          color="#ff6b6b" 
+          transparent 
+          opacity={0.5}
+        />
       </mesh>
       
       {/* Navigation lights */}
