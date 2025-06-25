@@ -10,6 +10,7 @@ import FlyingAstronaut from './components/FlyingAstronaut';
 import SpaceObjects from './components/SpaceObjects';
 import Navigation from './components/Navigation';
 import ScrollIndicator from './components/ScrollIndicator';
+import Cursor from './components/Cursor';
 import portfolioData from './data/portfolio.json';
 import type { PortfolioData, Section, Position, Project } from './types/portfolio';
 import './index.css';
@@ -132,7 +133,7 @@ const App: React.FC = () => {
                 {section.highlights.map((tech: string) => (
                   <span 
                     key={tech}
-                    className="px-4 py-2 bg-cyan-400/10 rounded-full border border-cyan-400/30 text-cyan-400 font-sans"
+                    className="px-4 py-2 bg-cyan-400/10 rounded-full border border-cyan-400/30 text-cyan-400 font-sans interactive cursor-pointer hover:bg-cyan-400/20 transition-all duration-300"
                   >
                     {tech}
                   </span>
@@ -157,7 +158,7 @@ const App: React.FC = () => {
             {section.stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 {Object.entries(section.stats).map(([key, value]) => (
-                  <div key={key} className="text-center p-4 bg-blue-400/10 rounded-lg border border-blue-400/20">
+                  <div key={key} className="text-center p-4 bg-blue-400/10 rounded-lg border border-blue-400/20 interactive cursor-pointer hover:bg-blue-400/20 hover:border-blue-400/40 transition-all duration-300">
                     <div className="text-2xl font-bold text-cyan-400 font-heading">{value}</div>
                     <div className="text-sm text-gray-400 font-sans">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
@@ -184,7 +185,7 @@ const App: React.FC = () => {
                 {section.positions.slice(0, 2).map((position: any, index: number) => (
                   <div 
                     key={index}
-                    className="p-4 bg-red-400/10 rounded-lg border border-red-400/20"
+                    className="p-4 bg-red-400/10 rounded-lg border border-red-400/20 interactive cursor-pointer hover:bg-red-400/20 hover:border-red-400/40 transition-all duration-300"
                   >
                     <h3 className="text-xl font-bold text-red-400 font-heading">{position.title}</h3>
                     <p className="text-white font-sans">{position.company} • {position.period}</p>
@@ -213,7 +214,7 @@ const App: React.FC = () => {
                 {section.categories.map((category: any) => (
                   <div 
                     key={category.title}
-                    className="p-4 bg-green-400/10 rounded-lg border border-green-400/20"
+                    className="p-4 bg-green-400/10 rounded-lg border border-green-400/20 interactive cursor-pointer hover:bg-green-400/20 hover:border-green-400/40 transition-all duration-300"
                   >
                     <h3 className="text-green-400 font-bold mb-2 font-heading">{category.title}</h3>
                     <div className="space-y-1">
@@ -248,7 +249,7 @@ const App: React.FC = () => {
                 {section.projects.filter((p: any) => p.featured).map((project: any) => (
                   <div 
                     key={project.title}
-                    className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20"
+                    className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
                   >
                     <h3 className="text-yellow-400 font-bold font-heading">{project.title}</h3>
                     <p className="text-gray-300 text-sm mt-1 font-sans">{project.description}</p>
@@ -273,8 +274,8 @@ const App: React.FC = () => {
             </p>
             {section.contactInfo && (
               <div className="space-y-2">
-                <p className="text-gray-300 font-sans">📧 {section.contactInfo.email}</p>
-                <p className="text-gray-300 font-sans">📱 {section.contactInfo.phone}</p>
+                <p className="text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300">📧 {section.contactInfo.email}</p>
+                <p className="text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300">📱 {section.contactInfo.phone}</p>
                 <p className="text-gray-300 font-sans">📍 {section.contactInfo.location}</p>
                 <p className="text-purple-400 mt-4 font-sans">{section.contactInfo.availability}</p>
               </div>
@@ -289,6 +290,9 @@ const App: React.FC = () => {
 
   return (
     <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-black">
+      {/* Custom Cursor */}
+      <Cursor />
+      
       {/* 3D Scene */}
       <div className="fixed inset-0 z-0">
         <Canvas 

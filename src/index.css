@@ -26,7 +26,7 @@ body {
   background: #000000;
   color: #ffffff;
   overflow: hidden;
-  cursor: default;
+  cursor: none; /* Hide default cursor */
 }
 
 /* Typography */
@@ -159,6 +159,47 @@ canvas {
   animation: spin 20s linear infinite;
 }
 
+/* Interactive elements for cursor */
+.interactive {
+  position: relative;
+}
+
+.interactive::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, transparent, rgba(79, 172, 254, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.interactive:hover::before {
+  opacity: 1;
+}
+
+/* Cursor trail particles */
+.cursor-trail {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+  animation: trail-fade 0.8s ease-out forwards;
+}
+
+@keyframes trail-fade {
+  0% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .font-display {
@@ -167,6 +208,18 @@ canvas {
   
   nav {
     right: 1rem !important;
+  }
+  
+  /* Show default cursor on touch devices */
+  body {
+    cursor: default;
+  }
+}
+
+/* Touch device detection */
+@media (pointer: coarse) {
+  body {
+    cursor: default !important;
   }
 }
 
@@ -191,4 +244,31 @@ canvas {
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* Cursor blend modes for different backgrounds */
+.cursor-blend-difference {
+  mix-blend-mode: difference;
+}
+
+.cursor-blend-exclusion {
+  mix-blend-mode: exclusion;
+}
+
+/* Enhanced hover states for better cursor interaction */
+button, a, [role="button"], .interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover, a:hover, [role="button"]:hover, .interactive:hover {
+  transform: translateY(-1px);
+}
+
+/* Cursor visibility controls */
+.cursor-hidden {
+  cursor: none !important;
+}
+
+.cursor-visible {
+  cursor: default !important;
 }
