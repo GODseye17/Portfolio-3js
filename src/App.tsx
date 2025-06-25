@@ -11,7 +11,6 @@ import SpaceObjects from './components/SpaceObjects';
 import Navigation from './components/Navigation';
 import ScrollIndicator from './components/ScrollIndicator';
 import Cursor from './components/Cursor';
-import { Github, Linkedin } from 'lucide-react';
 import portfolioData from './data/portfolio.json';
 import type { PortfolioData, Section, Position, Project } from './types/portfolio';
 import './index.css';
@@ -120,21 +119,21 @@ const App: React.FC = () => {
       case 'hero':
         return (
           <>
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-4 font-heading bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 font-heading bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
               {section.title}
             </h1>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 font-sans">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.highlights && (
-              <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+              <div className="flex flex-wrap justify-center gap-3">
                 {section.highlights.map((tech: string) => (
                   <span 
                     key={tech}
-                    className="px-3 md:px-4 py-2 bg-cyan-400/10 rounded-full border border-cyan-400/30 text-cyan-400 font-sans interactive cursor-pointer hover:bg-cyan-400/20 transition-all duration-300 text-sm md:text-base"
+                    className="px-4 py-2 bg-cyan-400/10 rounded-full border border-cyan-400/30 text-cyan-400 font-sans interactive cursor-pointer hover:bg-cyan-400/20 transition-all duration-300"
                   >
                     {tech}
                   </span>
@@ -147,21 +146,21 @@ const App: React.FC = () => {
       case 'about':
         return (
           <>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-heading text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 font-sans">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.stats && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 {Object.entries(section.stats).map(([key, value]) => (
-                  <div key={key} className="text-center p-3 md:p-4 bg-blue-400/10 rounded-lg border border-blue-400/20 interactive cursor-pointer hover:bg-blue-400/20 hover:border-blue-400/40 transition-all duration-300">
-                    <div className="text-xl md:text-2xl font-bold text-cyan-400 font-heading">{value}</div>
-                    <div className="text-xs md:text-sm text-gray-400 font-sans">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                  <div key={key} className="text-center p-4 bg-blue-400/10 rounded-lg border border-blue-400/20 interactive cursor-pointer hover:bg-blue-400/20 hover:border-blue-400/40 transition-all duration-300">
+                    <div className="text-2xl font-bold text-cyan-400 font-heading">{value}</div>
+                    <div className="text-sm text-gray-400 font-sans">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
                 ))}
               </div>
@@ -172,13 +171,13 @@ const App: React.FC = () => {
       case 'experience':
         return (
           <>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-heading text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 font-sans">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.positions && (
@@ -186,11 +185,11 @@ const App: React.FC = () => {
                 {section.positions.slice(0, 2).map((position: any, index: number) => (
                   <div 
                     key={index}
-                    className="p-3 md:p-4 bg-red-400/10 rounded-lg border border-red-400/20 interactive cursor-pointer hover:bg-red-400/20 hover:border-red-400/40 transition-all duration-300"
+                    className="p-4 bg-red-400/10 rounded-lg border border-red-400/20 interactive cursor-pointer hover:bg-red-400/20 hover:border-red-400/40 transition-all duration-300"
                   >
-                    <h3 className="text-lg md:text-xl font-bold text-red-400 font-heading">{position.title}</h3>
-                    <p className="text-white font-sans text-sm md:text-base">{position.company} • {position.period}</p>
-                    <p className="text-gray-400 text-xs md:text-sm mt-2 font-sans">{position.description}</p>
+                    <h3 className="text-xl font-bold text-red-400 font-heading">{position.title}</h3>
+                    <p className="text-white font-sans">{position.company} • {position.period}</p>
+                    <p className="text-gray-400 text-sm mt-2 font-sans">{position.description}</p>
                   </div>
                 ))}
               </div>
@@ -201,28 +200,28 @@ const App: React.FC = () => {
       case 'skills':
         return (
           <>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-heading text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 font-sans">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.categories && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <div className="grid grid-cols-2 gap-4 max-w-2xl mx-auto">
                 {section.categories.map((category: any) => (
                   <div 
                     key={category.title}
-                    className="p-3 md:p-4 bg-green-400/10 rounded-lg border border-green-400/20 interactive cursor-pointer hover:bg-green-400/20 hover:border-green-400/40 transition-all duration-300"
+                    className="p-4 bg-green-400/10 rounded-lg border border-green-400/20 interactive cursor-pointer hover:bg-green-400/20 hover:border-green-400/40 transition-all duration-300"
                   >
-                    <h3 className="text-green-400 font-bold mb-2 font-heading text-sm md:text-base">{category.title}</h3>
+                    <h3 className="text-green-400 font-bold mb-2 font-heading">{category.title}</h3>
                     <div className="space-y-1">
                       {category.skills.slice(0, 3).map((skill: any) => (
                         <div key={skill.name} className="flex justify-between">
-                          <span className="text-xs md:text-sm text-gray-300 font-sans">{skill.name}</span>
-                          <span className="text-xs md:text-sm text-gray-500 font-sans">{skill.level}%</span>
+                          <span className="text-sm text-gray-300 font-sans">{skill.name}</span>
+                          <span className="text-sm text-gray-500 font-sans">{skill.level}%</span>
                         </div>
                       ))}
                     </div>
@@ -236,13 +235,13 @@ const App: React.FC = () => {
       case 'projects':
         return (
           <>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-heading text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 font-sans">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.projects && (
@@ -250,10 +249,10 @@ const App: React.FC = () => {
                 {section.projects.filter((p: any) => p.featured).map((project: any) => (
                   <div 
                     key={project.title}
-                    className="p-3 md:p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+                    className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
                   >
-                    <h3 className="text-yellow-400 font-bold font-heading text-sm md:text-base">{project.title}</h3>
-                    <p className="text-gray-300 text-xs md:text-sm mt-1 font-sans">{project.description}</p>
+                    <h3 className="text-yellow-400 font-bold font-heading">{project.title}</h3>
+                    <p className="text-gray-300 text-sm mt-1 font-sans">{project.description}</p>
                   </div>
                 ))}
               </div>
@@ -264,60 +263,21 @@ const App: React.FC = () => {
       case 'contact':
         return (
           <>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 font-heading text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-6 font-sans">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-base md:text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.contactInfo && (
-              <div className="space-y-4 max-w-md mx-auto">
-                <a 
-                  href={`mailto:${section.contactInfo.email}`}
-                  className="block text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300 p-3 rounded-lg hover:bg-purple-400/10 text-sm md:text-base"
-                >
-                  📧 {section.contactInfo.email}
-                </a>
-                <a 
-                  href={`tel:${section.contactInfo.phone}`}
-                  className="block text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300 p-3 rounded-lg hover:bg-purple-400/10 text-sm md:text-base"
-                >
-                  📱 {section.contactInfo.phone}
-                </a>
-                <div className="text-gray-300 font-sans p-3 text-sm md:text-base">
-                  📍 {section.contactInfo.location}
-                </div>
-                
-                {/* Social Links */}
-                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                  <a 
-                    href="https://www.linkedin.com/in/yash-shankaram-035426237/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="interactive cursor-pointer group"
-                  >
-                    <div className="flex items-center gap-3 p-3 md:p-4 bg-purple-400/10 rounded-lg border border-purple-400/20 hover:bg-purple-400/20 hover:border-purple-400/40 transition-all duration-300">
-                      <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-purple-400 group-hover:text-purple-300" />
-                      <span className="text-gray-300 font-sans group-hover:text-white text-sm md:text-base">LinkedIn</span>
-                    </div>
-                  </a>
-                  <a 
-                    href="https://github.com/GODseye17" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="interactive cursor-pointer group"
-                  >
-                    <div className="flex items-center gap-3 p-3 md:p-4 bg-purple-400/10 rounded-lg border border-purple-400/20 hover:bg-purple-400/20 hover:border-purple-400/40 transition-all duration-300">
-                      <Github className="w-5 h-5 md:w-6 md:h-6 text-purple-400 group-hover:text-purple-300" />
-                      <span className="text-gray-300 font-sans group-hover:text-white text-sm md:text-base">GitHub</span>
-                    </div>
-                  </a>
-                </div>
-                
-                <p className="text-purple-400 mt-6 font-sans text-center text-sm md:text-base">{section.contactInfo.availability}</p>
+              <div className="space-y-2">
+                <p className="text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300">📧 {section.contactInfo.email}</p>
+                <p className="text-gray-300 font-sans interactive cursor-pointer hover:text-cyan-400 transition-colors duration-300">📱 {section.contactInfo.phone}</p>
+                <p className="text-gray-300 font-sans">📍 {section.contactInfo.location}</p>
+                <p className="text-purple-400 mt-4 font-sans">{section.contactInfo.availability}</p>
               </div>
             )}
           </>
@@ -391,23 +351,19 @@ const App: React.FC = () => {
       <AnimatePresence mode="wait">
         {isLoaded && (
           <>
-            {/* Navigation with hamburger menu for mobile */}
+            {/* Navigation */}
             <Navigation 
               currentSection={currentSection} 
               onNavigate={handleNavigation}
               isTransitioning={isTransitioning}
             />
             
-            {/* Scroll Indicator - hidden on mobile */}
-            {currentSection === 0 && (
-              <div className="hidden md:block">
-                <ScrollIndicator />
-              </div>
-            )}
+            {/* Scroll Indicator */}
+            {currentSection === 0 && <ScrollIndicator />}
             
-            {/* Section Content - Mobile responsive */}
+            {/* Section Content - No glass background */}
             <motion.div 
-              className="fixed inset-0 z-10 pointer-events-none flex items-center justify-center px-4 md:px-8"
+              className="fixed inset-0 z-10 pointer-events-none flex items-center justify-center px-8"
               key={currentSection}
             >
               <motion.div
@@ -423,7 +379,8 @@ const App: React.FC = () => {
                 }}
                 className="max-w-4xl w-full text-center pointer-events-auto"
               >
-                <div className="p-4 md:p-8 lg:p-12">
+                {/* Removed glass background - content now floats directly over space */}
+                <div className="p-8 md:p-12">
                   {renderSectionContent(sections[currentSection])}
                 </div>
               </motion.div>
@@ -441,15 +398,15 @@ const App: React.FC = () => {
             transition={{ duration: 1 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black"
           >
-            <div className="text-center px-4">
+            <div className="text-center">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                className="text-4xl md:text-6xl mb-4"
+                className="text-6xl mb-4"
               >
                 🚀
               </motion.div>
-              <div className="text-lg md:text-xl text-cyan-400 font-sans">Initializing Space Journey...</div>
+              <div className="text-xl text-cyan-400 font-sans">Initializing Space Journey...</div>
             </div>
           </motion.div>
         )}

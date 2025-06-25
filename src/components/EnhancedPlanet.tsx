@@ -13,91 +13,85 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
   const planetsRef = useRef<THREE.Group>(null);
   const planetRefs = useRef<(THREE.Group | null)[]>([]);
 
-  // Enhanced planet configurations with better materials and effects
+  // Planet configurations with enhanced visuals
   const planets = [
     { 
-      // Hero - Central Earth-like planet with enhanced details
+      // Hero - Central blue planet
       color: '#4169E1',
       emissive: '#1e3a8a',
       position: [0, 0, 0],
-      size: 4,
+      size: 3.5,
       rotationSpeed: 0.008,
       orbitRadius: 0,
       hasRings: false,
       hasClouds: true,
       hasAtmosphere: true,
-      surfaceDetails: true,
       name: "Terra Prime"
     },
     { 
-      // About - Beautiful blue ocean planet
+      // About - Blue Earth
       color: '#4facfe',
       emissive: '#2563eb',
       position: [30, 15, -20],
-      size: 3.5,
+      size: 3,
       rotationSpeed: 0.01,
       orbitRadius: 3,
       hasRings: false,
       hasClouds: true,
       hasAtmosphere: true,
-      surfaceDetails: true,
-      name: "Aqua"
+      name: "Earth"
     },
     { 
-      // Experience - Mars-like red planet with enhanced surface
+      // Experience - Red Mars
       color: '#CD5C5C',
       emissive: '#7f1d1d',
       position: [-25, -10, -30],
-      size: 3.2,
+      size: 2.8,
       rotationSpeed: 0.009,
       orbitRadius: 2.5,
       hasRings: false,
       hasClouds: false,
       hasAtmosphere: true,
-      surfaceDetails: true,
-      name: "Crimson"
+      name: "Mars"
     },
     { 
-      // Skills - Lush green forest planet
+      // Skills - Green forest planet
       color: '#228B22',
       emissive: '#14532d',
       position: [35, -20, -40],
-      size: 3.8,
+      size: 3.2,
       rotationSpeed: 0.007,
       orbitRadius: 4,
       hasRings: false,
       hasClouds: true,
       hasAtmosphere: true,
-      surfaceDetails: true,
-      name: "Verdania"
+      name: "Verdant"
     },
     { 
-      // Projects - Magnificent Saturn with enhanced rings
+      // Projects - Yellow Saturn
       color: '#FFD700',
       emissive: '#a16207',
       position: [-30, 25, -50],
-      size: 3.5,
+      size: 3,
       rotationSpeed: 0.006,
       orbitRadius: 3.5,
       hasRings: true,
       hasClouds: false,
       hasAtmosphere: true,
-      surfaceDetails: true,
-      name: "Aurelius"
+      name: "Saturn"
     },
     { 
-      // Contact - Mystical purple planet with ethereal glow
+      // Contact - Purple mystical planet
       color: '#9370DB',
       emissive: '#581c87',
       position: [0, -15, -60],
-      size: 3.3,
+      size: 2.8,
       rotationSpeed: 0.011,
       orbitRadius: 2,
       hasRings: false,
       hasClouds: true,
       hasAtmosphere: true,
-      surfaceDetails: true,
-      name: "Mystara"
+      name: "Mystic"
     }
   ];
 
@@ -108,79 +102,47 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
       const planetGroup = planetRefs.current[index];
       if (!planetGroup) return;
       
-      // Enhanced planet rotation with slight wobble
+      // Planet rotation
       planetGroup.rotation.y += planet.rotationSpeed;
-      planetGroup.rotation.x += planet.rotationSpeed * 0.1;
       
-      // Enhanced orbital movement with elliptical paths
+      // Orbital movement
       if (planet.orbitRadius > 0) {
-        const orbitSpeed = time * 0.08 + index;
-        const ellipseA = planet.orbitRadius;
-        const ellipseB = planet.orbitRadius * 0.7;
-        
-        planetGroup.position.x = planet.position[0] + Math.sin(orbitSpeed) * ellipseA;
-        planetGroup.position.y = planet.position[1] + Math.cos(orbitSpeed * 0.6) * ellipseB * 0.4;
-        planetGroup.position.z = planet.position[2] + Math.cos(orbitSpeed) * ellipseB;
+        const orbitSpeed = time * 0.1 + index;
+        planetGroup.position.x = planet.position[0] + Math.sin(orbitSpeed) * planet.orbitRadius;
+        planetGroup.position.y = planet.position[1] + Math.cos(orbitSpeed * 0.5) * planet.orbitRadius * 0.3;
+        planetGroup.position.z = planet.position[2] + Math.cos(orbitSpeed) * planet.orbitRadius * 0.5;
       }
       
-      // Enhanced glow and pulsing effects for active planet
+      // Enhanced glow effect for active planet
       const isActive = currentSection === index;
       const planetMesh = planetGroup.children[0] as THREE.Mesh;
-      
       if (planetMesh && planetMesh.material) {
         const material = planetMesh.material as THREE.MeshStandardMaterial;
-        
-        // Safely set emissiveIntensity
-        try {
-          if ('emissiveIntensity' in material) {
-            material.emissiveIntensity = isActive ? 1.2 + Math.sin(time * 2) * 0.3 : 0.4;
-          }
-        } catch (error) {
-          console.error(`Planet ${index} (${planet.name}): Error setting emissiveIntensity:`, error);
-        }
+        material.emissiveIntensity = isActive ? 0.8 : 0.3;
       }
       
-      // Enhanced atmosphere effects
+      // Atmosphere pulsing
       const atmosphere = planetGroup.children.find(child => child.name === 'atmosphere') as THREE.Mesh;
       if (atmosphere && atmosphere.material) {
         const atmosphereMaterial = atmosphere.material as THREE.MeshBasicMaterial;
-        
-        // Safely set opacity
-        try {
-          if ('opacity' in atmosphereMaterial) {
-            atmosphereMaterial.opacity = isActive 
-              ? 0.7 + Math.sin(time * 2.5) * 0.2 
-              : 0.4 + Math.sin(time * 1.2) * 0.1;
-          }
-        } catch (error) {
-          console.error(`Planet ${index} (${planet.name}): Error setting atmosphere opacity:`, error);
-        }
+        atmosphereMaterial.opacity = isActive 
+          ? 0.6 + Math.sin(time * 2) * 0.2 
+          : 0.3 + Math.sin(time) * 0.1;
       }
       
-      // Enhanced multi-layer glow system
-      const glowLayers = ['outerGlow', 'farGlow', 'ultraGlow'];
-      glowLayers.forEach((glowName, glowIndex) => {
-        const glow = planetGroup.children.find(child => child.name === glowName) as THREE.Mesh;
-        if (glow && glow.material) {
-          const glowMaterial = glow.material as THREE.MeshBasicMaterial;
-          
-          // Safely set opacity
-          try {
-            if ('opacity' in glowMaterial) {
-              const baseOpacity = isActive ? 0.4 : 0.15;
-              const pulseIntensity = isActive ? 0.2 : 0.08;
-              glowMaterial.opacity = baseOpacity + Math.sin(time * (1.8 - glowIndex * 0.3)) * pulseIntensity;
-            }
-          } catch (error) {
-            console.error(`Planet ${index} (${planet.name}): Error setting ${glowName} opacity:`, error);
-          }
-        }
-      });
+      // Enhanced outer glow for active planet
+      const outerGlow = planetGroup.children.find(child => child.name === 'outerGlow') as THREE.Mesh;
+      if (outerGlow && outerGlow.material) {
+        const glowMaterial = outerGlow.material as THREE.MeshBasicMaterial;
+        glowMaterial.opacity = isActive 
+          ? 0.3 + Math.sin(time * 1.5) * 0.15 
+          : 0.1 + Math.sin(time * 0.8) * 0.05;
+      }
     });
   });
 
   useEffect(() => {
-    // Enhanced planet activation animations
+    // Animate active planet
     planets.forEach((planet, index) => {
       const planetGroup = planetRefs.current[index];
       if (!planetGroup) return;
@@ -188,20 +150,18 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
       const isActive = currentSection === index;
       
       if (isActive) {
-        // More dramatic scale and rotation animation
         gsap.to(planetGroup.scale, {
-          x: 1.6,
-          y: 1.6,
-          z: 1.6,
-          duration: 2,
-          ease: "elastic.out(1, 0.4)"
+          x: 1.4,
+          y: 1.4,
+          z: 1.4,
+          duration: 1.5,
+          ease: "elastic.out(1, 0.5)"
         });
         
-        // Enhanced spinning with multiple axis rotation
+        // Add spinning animation
         gsap.to(planetGroup.rotation, {
-          x: planetGroup.rotation.x + Math.PI * 0.3,
-          z: planetGroup.rotation.z + Math.PI * 0.2,
-          duration: 2,
+          x: planetGroup.rotation.x + Math.PI * 0.5,
+          duration: 1.5,
           ease: "power2.inOut"
         });
       } else {
@@ -209,7 +169,7 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
           x: 1,
           y: 1,
           z: 1,
-          duration: 1.5,
+          duration: 1,
           ease: "power2.out"
         });
       }
@@ -223,117 +183,76 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
         ref={(el) => planetRefs.current[index] = el}
         position={config.position}
       >
-        {/* Main planet with enhanced PBR materials */}
+        {/* Main planet with enhanced materials */}
         <mesh castShadow receiveShadow>
-          <sphereGeometry args={[config.size, 128, 128]} />
+          <sphereGeometry args={[config.size, 64, 64]} />
           <meshStandardMaterial
             color={config.color}
             emissive={config.emissive}
-            emissiveIntensity={0.4}
-            metalness={0.2}
-            roughness={0.8}
-            envMapIntensity={2}
+            emissiveIntensity={0.3}
+            metalness={0.4}
+            roughness={0.6}
+            envMapIntensity={1.5}
           />
         </mesh>
         
-        {/* Enhanced surface details with multiple layers */}
-        {config.surfaceDetails && (
-          <>
-            <mesh>
-              <sphereGeometry args={[config.size * 1.002, 64, 64]} />
-              <meshStandardMaterial
-                color={new THREE.Color(config.color).multiplyScalar(0.8)}
-                transparent
-                opacity={0.6}
-                metalness={0.1}
-                roughness={0.9}
-                emissive={config.emissive}
-                emissiveIntensity={0.1}
-              />
-            </mesh>
-            
-            {/* Surface texture layer */}
-            <mesh>
-              <sphereGeometry args={[config.size * 1.004, 32, 32]} />
-              <meshStandardMaterial
-                color={new THREE.Color(config.color).multiplyScalar(1.2)}
-                transparent
-                opacity={0.3}
-                metalness={0.05}
-                roughness={0.95}
-              />
-            </mesh>
-          </>
-        )}
+        {/* Enhanced surface details with normal mapping effect */}
+        <mesh>
+          <sphereGeometry args={[config.size * 1.005, 32, 32]} />
+          <meshStandardMaterial
+            color={config.color}
+            transparent
+            opacity={0.4}
+            metalness={0.6}
+            roughness={0.4}
+            emissive={config.emissive}
+            emissiveIntensity={0.1}
+          />
+        </mesh>
         
-        {/* Enhanced multi-layer atmosphere */}
+        {/* Enhanced atmosphere */}
         {config.hasAtmosphere && (
-          <>
-            <mesh name="atmosphere">
-              <sphereGeometry args={[config.size * 1.15, 32, 32]} />
-              <meshBasicMaterial
-                color={config.color}
-                transparent
-                opacity={0.4}
-                side={THREE.BackSide}
-                blending={THREE.AdditiveBlending}
-              />
-            </mesh>
-            
-            {/* Secondary atmosphere layer */}
-            <mesh name="atmosphere2">
-              <sphereGeometry args={[config.size * 1.25, 24, 24]} />
-              <meshBasicMaterial
-                color={new THREE.Color(config.color).multiplyScalar(1.3)}
-                transparent
-                opacity={0.2}
-                side={THREE.BackSide}
-                blending={THREE.AdditiveBlending}
-              />
-            </mesh>
-          </>
+          <mesh name="atmosphere">
+            <sphereGeometry args={[config.size * 1.2, 32, 32]} />
+            <meshBasicMaterial
+              color={config.color}
+              transparent
+              opacity={0.3}
+              side={THREE.BackSide}
+              blending={THREE.AdditiveBlending}
+            />
+          </mesh>
         )}
         
-        {/* Enhanced multi-layer glow system */}
+        {/* Enhanced outer glow */}
         <mesh name="outerGlow">
           <sphereGeometry args={[config.size * 1.4, 16, 16]} />
           <meshBasicMaterial
             color={config.color}
             transparent
-            opacity={0.15}
+            opacity={0.1}
             side={THREE.BackSide}
             blending={THREE.AdditiveBlending}
           />
         </mesh>
         
+        {/* Far outer glow for dramatic effect */}
         <mesh name="farGlow">
           <sphereGeometry args={[config.size * 1.8, 12, 12]} />
           <meshBasicMaterial
             color={config.color}
             transparent
-            opacity={0.08}
+            opacity={0.05}
             side={THREE.BackSide}
             blending={THREE.AdditiveBlending}
           />
         </mesh>
         
-        <mesh name="ultraGlow">
-          <sphereGeometry args={[config.size * 2.2, 8, 8]} />
-          <meshBasicMaterial
-            color={config.color}
-            transparent
-            opacity={0.04}
-            side={THREE.BackSide}
-            blending={THREE.AdditiveBlending}
-          />
-        </mesh>
-        
-        {/* Enhanced Saturn's rings with multiple layers */}
+        {/* Enhanced Saturn's rings */}
         {config.hasRings && (
           <>
-            {/* Main ring system */}
             <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[config.size * 1.6, config.size * 2.8, 128]} />
+              <ringGeometry args={[config.size * 1.6, config.size * 2.4, 64]} />
               <meshBasicMaterial
                 color={config.color}
                 side={THREE.DoubleSide}
@@ -342,87 +261,67 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
                 blending={THREE.AdditiveBlending}
               />
             </mesh>
-            
-            {/* Secondary ring */}
             <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[config.size * 3.0, config.size * 3.8, 128]} />
+              <ringGeometry args={[config.size * 2.5, config.size * 3.0, 64]} />
               <meshBasicMaterial
-                color={new THREE.Color(config.color).multiplyScalar(0.8)}
+                color={config.color}
                 side={THREE.DoubleSide}
                 transparent
-                opacity={0.7}
+                opacity={0.6}
                 blending={THREE.AdditiveBlending}
               />
             </mesh>
-            
-            {/* Outer ring */}
             <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[config.size * 4.0, config.size * 4.5, 64]} />
+              <ringGeometry args={[config.size * 3.1, config.size * 3.6, 64]} />
               <meshBasicMaterial
-                color={new THREE.Color(config.color).multiplyScalar(0.6)}
+                color={config.color}
                 side={THREE.DoubleSide}
                 transparent
-                opacity={0.5}
-                blending={THREE.AdditiveBlending}
-              />
-            </mesh>
-            
-            {/* Ring particles */}
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <ringGeometry args={[config.size * 4.6, config.size * 5.0, 32]} />
-              <meshBasicMaterial
-                color={new THREE.Color(config.color).multiplyScalar(0.4)}
-                side={THREE.DoubleSide}
-                transparent
-                opacity={0.3}
+                opacity={0.4}
                 blending={THREE.AdditiveBlending}
               />
             </mesh>
           </>
         )}
         
-        {/* Enhanced volumetric clouds */}
+        {/* Enhanced clouds for some planets */}
         {config.hasClouds && (
           <>
-            {/* Primary cloud layer */}
             <mesh>
               <sphereGeometry args={[config.size * 1.08, 32, 32]} />
               <meshStandardMaterial
                 color="#ffffff"
                 transparent
-                opacity={0.4}
+                opacity={0.3}
                 metalness={0}
                 roughness={1}
                 blending={THREE.AdditiveBlending}
               />
             </mesh>
-            
             {/* Secondary cloud layer */}
-            <mesh rotation={[0, Math.PI / 3, 0]}>
+            <mesh rotation={[0, Math.PI / 4, 0]}>
               <sphereGeometry args={[config.size * 1.06, 24, 24]} />
-              <meshStandardMaterial
-                color="#f0f8ff"
-                transparent
-                opacity={0.25}
-                metalness={0}
-                roughness={1}
-                blending={THREE.AdditiveBlending}
-              />
-            </mesh>
-            
-            {/* Wispy high-altitude clouds */}
-            <mesh rotation={[0, Math.PI / 6, 0]}>
-              <sphereGeometry args={[config.size * 1.1, 16, 16]} />
               <meshStandardMaterial
                 color="#ffffff"
                 transparent
-                opacity={0.15}
+                opacity={0.2}
                 metalness={0}
                 roughness={1}
                 blending={THREE.AdditiveBlending}
               />
             </mesh>
           </>
+        )}
+        
+        {/* Planet label (appears on hover/active) */}
+        {currentSection === index && (
+          <sprite position={[0, config.size + 1.5, 0]}>
+            <spriteMaterial 
+              color="#ffffff" 
+              opacity={0.9}
+              transparent
+            />
+          </sprite>
         )}
       </group>
     );
@@ -432,28 +331,27 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
     <group ref={planetsRef}>
       {planets.map((planet, index) => createPlanet(planet, index))}
       
-      {/* Enhanced space environment */}
-      {/* Improved asteroid belt */}
+      {/* Enhanced space decorations */}
+      {/* Asteroid belt between Mars and Jupiter */}
       <group position={[5, -15, -35]}>
-        {Array.from({ length: 60 }).map((_, i) => {
-          const angle = (i / 60) * Math.PI * 2;
-          const radius = 8 + Math.random() * 6;
-          const height = (Math.random() - 0.5) * 4;
+        {Array.from({ length: 40 }).map((_, i) => {
+          const angle = (i / 40) * Math.PI * 2;
+          const radius = 8 + Math.random() * 4;
           return (
             <mesh
               key={`asteroid-${i}`}
               position={[
                 Math.cos(angle) * radius,
-                height,
+                (Math.random() - 0.5) * 3,
                 Math.sin(angle) * radius
               ]}
             >
-              <dodecahedronGeometry args={[0.2 + Math.random() * 0.5, 1]} />
+              <dodecahedronGeometry args={[0.3 + Math.random() * 0.4, 0]} />
               <meshStandardMaterial 
                 color="#8B7355" 
-                roughness={0.95} 
-                metalness={0.05}
-                emissive="#2a1f1a"
+                roughness={0.9} 
+                metalness={0.1}
+                emissive="#4a3728"
                 emissiveIntensity={0.1}
               />
             </mesh>
@@ -461,87 +359,55 @@ const EnhancedPlanets: React.FC<EnhancedPlanetsProps> = ({ currentSection, isTra
         })}
       </group>
       
-      {/* Enhanced planetary moons */}
-      {/* Earth's moon with enhanced detail */}
+      {/* Enhanced moons for some planets */}
+      {/* Earth's moon */}
       <mesh position={[33, 17, -18]}>
-        <sphereGeometry args={[0.6, 32, 32]} />
+        <sphereGeometry args={[0.5, 16, 16]} />
         <meshStandardMaterial 
-          color="#c0c0c0" 
-          roughness={0.95}
-          metalness={0.05}
-          emissive="#404040"
+          color="#cccccc" 
+          roughness={0.9}
+          emissive="#666666"
           emissiveIntensity={0.1}
         />
       </mesh>
       
-      {/* Jupiter's major moons */}
+      {/* Jupiter's moons */}
       <mesh position={[38, -18, -38]}>
-        <sphereGeometry args={[0.5, 24, 24]} />
+        <sphereGeometry args={[0.4, 16, 16]} />
         <meshStandardMaterial 
           color="#e6daa6"
-          roughness={0.9}
           emissive="#8b7d6b"
           emissiveIntensity={0.1}
         />
       </mesh>
       <mesh position={[40, -22, -42]}>
-        <sphereGeometry args={[0.4, 20, 20]} />
+        <sphereGeometry args={[0.3, 16, 16]} />
         <meshStandardMaterial 
           color="#8b7d6b"
-          roughness={0.95}
           emissive="#4a3728"
           emissiveIntensity={0.1}
         />
       </mesh>
-      <mesh position={[36, -24, -44]}>
-        <sphereGeometry args={[0.35, 16, 16]} />
-        <meshStandardMaterial 
-          color="#a0522d"
-          roughness={0.9}
-          emissive="#654321"
-          emissiveIntensity={0.1}
-        />
-      </mesh>
       
-      {/* Enhanced space station */}
+      {/* Additional cosmic phenomena */}
+      {/* Space station */}
       <group position={[15, 8, -15]}>
         <mesh>
-          <cylinderGeometry args={[0.4, 0.4, 2.5, 12]} />
+          <cylinderGeometry args={[0.3, 0.3, 2, 8]} />
           <meshStandardMaterial 
-            color="#e8e8e8" 
-            metalness={0.95} 
-            roughness={0.05}
-            emissive="#4facfe"
-            emissiveIntensity={0.3}
-          />
-        </mesh>
-        <mesh position={[0, 0, 2]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[1, 1, 0.3, 16]} />
-          <meshStandardMaterial 
-            color="#b8b8b8" 
+            color="#ffffff" 
             metalness={0.9} 
             roughness={0.1}
-          />
-        </mesh>
-        {/* Solar panels */}
-        <mesh position={[2.5, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <boxGeometry args={[0.1, 3, 1.5]} />
-          <meshStandardMaterial 
-            color="#1a1a2e" 
-            metalness={0.8} 
-            roughness={0.2}
-            emissive="#0066cc"
+            emissive="#4facfe"
             emissiveIntensity={0.2}
           />
         </mesh>
-        <mesh position={[-2.5, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <boxGeometry args={[0.1, 3, 1.5]} />
+        <mesh position={[0, 0, 1.5]} rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.8, 0.8, 0.2, 8]} />
           <meshStandardMaterial 
-            color="#1a1a2e" 
+            color="#cccccc" 
             metalness={0.8} 
             roughness={0.2}
-            emissive="#0066cc"
-            emissiveIntensity={0.2}
           />
         </mesh>
       </group>

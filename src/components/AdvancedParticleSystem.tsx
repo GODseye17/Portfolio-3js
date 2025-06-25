@@ -97,49 +97,29 @@ const AdvancedParticleSystem: React.FC<AdvancedParticleSystemProps> = ({
     
     // Simple particle animation
     if (particlesRef.current) {
-      const material = particlesRef.current.material as THREE.PointsMaterial;
-      
-      // Safely set opacity
-      try {
-        if ('opacity' in material) {
-          material.opacity = 0.2 + Math.sin(time * 0.3) * 0.05;
-        }
-      } catch (error) {
-        console.error('Error setting particles opacity:', error);
-      }
-      
       particlesRef.current.rotation.y += 0.0001; // Very slow
+      
+      // Gentle twinkling
+      const material = particlesRef.current.material as THREE.PointsMaterial;
+      material.opacity = 0.2 + Math.sin(time * 0.3) * 0.05;
       
       // Minimal movement during transitions
       if (isTransitioning) {
-        try {
-          const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
-          for (let i = 0; i < positions.length; i += 3) {
-            positions[i] += velocities[i / 3 * 3] * 1;
-            positions[i + 1] += velocities[i / 3 * 3 + 1] * 1;
-            positions[i + 2] += velocities[i / 3 * 3 + 2] * 1;
-          }
-          particlesRef.current.geometry.attributes.position.needsUpdate = true;
-        } catch (error) {
-          console.error('Error updating particle positions:', error);
+        const positions = particlesRef.current.geometry.attributes.position.array as Float32Array;
+        for (let i = 0; i < positions.length; i += 3) {
+          positions[i] += velocities[i / 3 * 3] * 1;
+          positions[i + 1] += velocities[i / 3 * 3 + 1] * 1;
+          positions[i + 2] += velocities[i / 3 * 3 + 2] * 1;
         }
+        particlesRef.current.geometry.attributes.position.needsUpdate = true;
       }
     }
     
     // Simple nebula animation
     if (nebulaRef.current) {
-      const material = nebulaRef.current.material as THREE.PointsMaterial;
-      
-      // Safely set opacity
-      try {
-        if ('opacity' in material) {
-          material.opacity = 0.1 + Math.sin(time * 0.2) * 0.03;
-        }
-      } catch (error) {
-        console.error('Error setting nebula particles opacity:', error);
-      }
-      
       nebulaRef.current.rotation.y += 0.00002;
+      const material = nebulaRef.current.material as THREE.PointsMaterial;
+      material.opacity = 0.1 + Math.sin(time * 0.2) * 0.03;
     }
   });
   

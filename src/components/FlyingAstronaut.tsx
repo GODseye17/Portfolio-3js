@@ -61,14 +61,7 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
     
     // Update antenna light blinking effect
     if (antennaLightMaterialRef.current) {
-      // Safely set opacity
-      try {
-        if ('opacity' in antennaLightMaterialRef.current) {
-          antennaLightMaterialRef.current.opacity = 0.5 + Math.sin(time * 5) * 0.5;
-        }
-      } catch (error) {
-        console.error('Error setting antenna light opacity:', error);
-      }
+      antennaLightMaterialRef.current.opacity = 0.5 + Math.sin(time * 5) * 0.5;
     }
     
     // Get camera direction
@@ -111,53 +104,40 @@ const FlyingAstronaut: React.FC<FlyingAstronautProps> = ({ currentSection, isTra
       // Enhanced jetpack glow
       const jetpackFlames = jetpackRef.current.children;
       jetpackFlames.forEach((flame, index) => {
-        if (flame instanceof THREE.Mesh && flame.material) {
+        if (flame instanceof THREE.Mesh) {
           const material = flame.material as THREE.MeshBasicMaterial;
-          
-          // Safely set opacity
-          try {
-            if ('opacity' in material) {
-              material.opacity = isTransitioning 
-                ? 0.95 + Math.sin(time * 12 + index) * 0.05
-                : 0.8 + Math.sin(time * 6 + index) * 0.2;
-            }
-          } catch (error) {
-            console.error(`Error setting jetpack flame ${index} opacity:`, error);
-          }
+          material.opacity = isTransitioning 
+            ? 0.95 + Math.sin(time * 12 + index) * 0.05
+            : 0.8 + Math.sin(time * 6 + index) * 0.2;
         }
       });
     }
     
     // Enhanced particle trail
     if (trailRef.current) {
-      // Safely update particle positions
-      try {
-        const positions = trailRef.current.geometry.attributes.position.array as Float32Array;
-        const trailSizes = trailRef.current.geometry.attributes.size.array as Float32Array;
+      const positions = trailRef.current.geometry.attributes.position.array as Float32Array;
+      const trailSizes = trailRef.current.geometry.attributes.size.array as Float32Array;
+      
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] += velocities[i];
+        positions[i + 1] += velocities[i + 1];
+        positions[i + 2] += velocities[i + 2];
         
-        for (let i = 0; i < particleCount * 3; i += 3) {
-          positions[i] += velocities[i];
-          positions[i + 1] += velocities[i + 1];
-          positions[i + 2] += velocities[i + 2];
-          
-          // Fade out particles
-          const particleIndex = i / 3;
-          trailSizes[particleIndex] *= 0.97;
-          
-          // Reset particles
-          if (positions[i + 2] < -8 || trailSizes[particleIndex] < 0.01) {
-            positions[i] = astronautRef.current.position.x + (Math.random() - 0.5) * 0.3;
-            positions[i + 1] = astronautRef.current.position.y - 0.8;
-            positions[i + 2] = astronautRef.current.position.z - 0.5;
-            trailSizes[particleIndex] = Math.random() * 1.2 + 0.3;
-          }
+        // Fade out particles
+        const particleIndex = i / 3;
+        trailSizes[particleIndex] *= 0.97;
+        
+        // Reset particles
+        if (positions[i + 2] < -8 || trailSizes[particleIndex] < 0.01) {
+          positions[i] = astronautRef.current.position.x + (Math.random() - 0.5) * 0.3;
+          positions[i + 1] = astronautRef.current.position.y - 0.8;
+          positions[i + 2] = astronautRef.current.position.z - 0.5;
+          trailSizes[particleIndex] = Math.random() * 1.2 + 0.3;
         }
-        
-        trailRef.current.geometry.attributes.position.needsUpdate = true;
-        trailRef.current.geometry.attributes.size.needsUpdate = true;
-      } catch (error) {
-        console.error('Error updating trail particles:', error);
       }
+      
+      trailRef.current.geometry.attributes.position.needsUpdate = true;
+      trailRef.current.geometry.attributes.size.needsUpdate = true;
     }
   });
 
