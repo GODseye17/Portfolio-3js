@@ -14,7 +14,7 @@ import portfolioData from './data/portfolio.json';
 import type { PortfolioData, Section, Position, Project } from './types/portfolio';
 import './index.css';
 
-// Camera controller component
+// Camera controller component with smoother transitions
 const CameraController: React.FC<{ targetPlanet: number }> = ({ targetPlanet }) => {
   const { camera } = useThree();
   const planetPositions = [
@@ -36,8 +36,8 @@ const CameraController: React.FC<{ targetPlanet: number }> = ({ targetPlanet }) 
     
     const idealPosition = targetPosition.clone().add(idealOffset);
     
-    // Smooth camera movement
-    camera.position.lerp(idealPosition, 0.02);
+    // Much smoother camera movement
+    camera.position.lerp(idealPosition, 0.015);
     
     // Look at planet with offset for better view
     const lookAtPosition = targetPosition.clone();
@@ -77,9 +77,10 @@ const App: React.FC = () => {
     setIsTransitioning(true);
     setCurrentSection(index);
     
+    // Longer transition time for smoother effect
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 1500);
+    }, 2000);
   };
 
   useEffect(() => {
@@ -131,7 +132,7 @@ const App: React.FC = () => {
                 {section.highlights.map((tech: string) => (
                   <span 
                     key={tech}
-                    className="px-4 py-2 bg-white/5 backdrop-blur-lg rounded-full border border-cyan-400/20 text-cyan-400 font-sans"
+                    className="px-4 py-2 bg-cyan-400/10 rounded-full border border-cyan-400/30 text-cyan-400 font-sans"
                   >
                     {tech}
                   </span>
@@ -156,7 +157,7 @@ const App: React.FC = () => {
             {section.stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 {Object.entries(section.stats).map(([key, value]) => (
-                  <div key={key} className="text-center p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-blue-400/10">
+                  <div key={key} className="text-center p-4 bg-blue-400/10 rounded-lg border border-blue-400/20">
                     <div className="text-2xl font-bold text-cyan-400 font-heading">{value}</div>
                     <div className="text-sm text-gray-400 font-sans">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
@@ -183,7 +184,7 @@ const App: React.FC = () => {
                 {section.positions.slice(0, 2).map((position: any, index: number) => (
                   <div 
                     key={index}
-                    className="p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-red-400/10"
+                    className="p-4 bg-red-400/10 rounded-lg border border-red-400/20"
                   >
                     <h3 className="text-xl font-bold text-red-400 font-heading">{position.title}</h3>
                     <p className="text-white font-sans">{position.company} • {position.period}</p>
@@ -212,7 +213,7 @@ const App: React.FC = () => {
                 {section.categories.map((category: any) => (
                   <div 
                     key={category.title}
-                    className="p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-green-400/10"
+                    className="p-4 bg-green-400/10 rounded-lg border border-green-400/20"
                   >
                     <h3 className="text-green-400 font-bold mb-2 font-heading">{category.title}</h3>
                     <div className="space-y-1">
@@ -247,7 +248,7 @@ const App: React.FC = () => {
                 {section.projects.filter((p: any) => p.featured).map((project: any) => (
                   <div 
                     key={project.title}
-                    className="p-4 bg-gradient-to-r from-yellow-400/5 to-amber-500/5 backdrop-blur-lg rounded-lg border border-yellow-400/10"
+                    className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20"
                   >
                     <h3 className="text-yellow-400 font-bold font-heading">{project.title}</h3>
                     <p className="text-gray-300 text-sm mt-1 font-sans">{project.description}</p>
@@ -302,14 +303,14 @@ const App: React.FC = () => {
         >
           <Suspense fallback={null}>
             {/* Enhanced Lighting Setup */}
-            <ambientLight intensity={0.3} color="#ffffff" />
-            <pointLight position={[20, 20, 20]} intensity={1} color="#4facfe" />
-            <pointLight position={[-20, -20, -20]} intensity={0.8} color="#ff6b6b" />
-            <directionalLight position={[0, 10, 5]} intensity={0.5} color="#ffffff" />
+            <ambientLight intensity={0.4} color="#ffffff" />
+            <pointLight position={[20, 20, 20]} intensity={1.2} color="#4facfe" />
+            <pointLight position={[-20, -20, -20]} intensity={1} color="#ff6b6b" />
+            <directionalLight position={[0, 10, 5]} intensity={0.6} color="#ffffff" />
             <hemisphereLight 
               color="#4facfe" 
               groundColor="#ff6b6b" 
-              intensity={0.3} 
+              intensity={0.4} 
             />
             
             {/* Fog for depth */}
@@ -333,7 +334,7 @@ const App: React.FC = () => {
               isTransitioning={isTransitioning}
             />
             
-            {/* Flying Astronaut Companion */}
+            {/* Flying Astronaut Companion - Enhanced visibility */}
             <FlyingAstronaut 
               currentSection={currentSection} 
               isTransitioning={isTransitioning}
@@ -343,7 +344,7 @@ const App: React.FC = () => {
       </div>
       
       {/* UI Layer */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isLoaded && (
           <>
             {/* Navigation */}
@@ -356,19 +357,26 @@ const App: React.FC = () => {
             {/* Scroll Indicator */}
             {currentSection === 0 && <ScrollIndicator />}
             
-            {/* Section Content */}
+            {/* Section Content - No glass background */}
             <motion.div 
               className="fixed inset-0 z-10 pointer-events-none flex items-center justify-center px-8"
               key={currentSection}
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.8, y: -50 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.9, y: -30 }}
+                transition={{ 
+                  duration: 1.2, 
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                  opacity: { duration: 0.8 },
+                  scale: { duration: 1.2 },
+                  y: { duration: 1.2 }
+                }}
                 className="max-w-4xl w-full text-center pointer-events-auto"
               >
-                <div className="bg-black/20 backdrop-blur-xl rounded-3xl p-8 md:p-12 border border-white/5 shadow-2xl">
+                {/* Removed glass background - content now floats directly over space */}
+                <div className="p-8 md:p-12">
                   {renderSectionContent(sections[currentSection])}
                 </div>
               </motion.div>
@@ -383,6 +391,7 @@ const App: React.FC = () => {
           <motion.div
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black"
           >
             <div className="text-center">
