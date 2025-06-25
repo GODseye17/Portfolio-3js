@@ -60,7 +60,7 @@ const App: React.FC = () => {
   // TypeScript knows the shape of your data
   const currentSectionData: Section = sections[currentSection];
   
-  // When accessing nested data, you get autocomplete
+  // When mapping sections, TypeScript knows the type
   if (currentSectionData.positions) {
     currentSectionData.positions.forEach((position: Position) => {
       console.log(position.title); // TypeScript knows this exists
@@ -117,13 +117,13 @@ const App: React.FC = () => {
       case 'hero':
         return (
           <>
-            <h1 className="text-5xl md:text-7xl font-bold mb-4 font-display bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+            <h1 className="text-5xl md:text-7xl font-bold mb-4 font-heading bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
               {section.title}
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.highlights && (
@@ -131,7 +131,7 @@ const App: React.FC = () => {
                 {section.highlights.map((tech: string) => (
                   <span 
                     key={tech}
-                    className="px-4 py-2 bg-white/5 backdrop-blur-lg rounded-full border border-cyan-400/20 text-cyan-400"
+                    className="px-4 py-2 bg-white/5 backdrop-blur-lg rounded-full border border-cyan-400/20 text-cyan-400 font-sans"
                   >
                     {tech}
                   </span>
@@ -144,21 +144,21 @@ const App: React.FC = () => {
       case 'about':
         return (
           <>
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-display text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
                 {Object.entries(section.stats).map(([key, value]) => (
                   <div key={key} className="text-center p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-blue-400/10">
-                    <div className="text-2xl font-bold text-cyan-400">{value}</div>
-                    <div className="text-sm text-gray-400">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                    <div className="text-2xl font-bold text-cyan-400 font-heading">{value}</div>
+                    <div className="text-sm text-gray-400 font-sans">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
                 ))}
               </div>
@@ -169,13 +169,13 @@ const App: React.FC = () => {
       case 'experience':
         return (
           <>
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-display text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.positions && (
@@ -185,9 +185,9 @@ const App: React.FC = () => {
                     key={index}
                     className="p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-red-400/10"
                   >
-                    <h3 className="text-xl font-bold text-red-400">{position.title}</h3>
-                    <p className="text-white">{position.company} • {position.period}</p>
-                    <p className="text-gray-400 text-sm mt-2">{position.description}</p>
+                    <h3 className="text-xl font-bold text-red-400 font-heading">{position.title}</h3>
+                    <p className="text-white font-sans">{position.company} • {position.period}</p>
+                    <p className="text-gray-400 text-sm mt-2 font-sans">{position.description}</p>
                   </div>
                 ))}
               </div>
@@ -198,13 +198,13 @@ const App: React.FC = () => {
       case 'skills':
         return (
           <>
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-display text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.categories && (
@@ -214,12 +214,12 @@ const App: React.FC = () => {
                     key={category.title}
                     className="p-4 bg-white/3 backdrop-blur-lg rounded-lg border border-green-400/10"
                   >
-                    <h3 className="text-green-400 font-bold mb-2">{category.title}</h3>
+                    <h3 className="text-green-400 font-bold mb-2 font-heading">{category.title}</h3>
                     <div className="space-y-1">
                       {category.skills.slice(0, 3).map((skill: any) => (
                         <div key={skill.name} className="flex justify-between">
-                          <span className="text-sm text-gray-300">{skill.name}</span>
-                          <span className="text-sm text-gray-500">{skill.level}%</span>
+                          <span className="text-sm text-gray-300 font-sans">{skill.name}</span>
+                          <span className="text-sm text-gray-500 font-sans">{skill.level}%</span>
                         </div>
                       ))}
                     </div>
@@ -233,13 +233,13 @@ const App: React.FC = () => {
       case 'projects':
         return (
           <>
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-display text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.projects && (
@@ -249,8 +249,8 @@ const App: React.FC = () => {
                     key={project.title}
                     className="p-4 bg-gradient-to-r from-yellow-400/5 to-amber-500/5 backdrop-blur-lg rounded-lg border border-yellow-400/10"
                   >
-                    <h3 className="text-yellow-400 font-bold">{project.title}</h3>
-                    <p className="text-gray-300 text-sm mt-1">{project.description}</p>
+                    <h3 className="text-yellow-400 font-bold font-heading">{project.title}</h3>
+                    <p className="text-gray-300 text-sm mt-1 font-sans">{project.description}</p>
                   </div>
                 ))}
               </div>
@@ -261,21 +261,21 @@ const App: React.FC = () => {
       case 'contact':
         return (
           <>
-            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-display text-white">
+            <h2 className="text-4xl md:text-6xl font-bold mb-4 font-heading text-white">
               {section.title}
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 mb-6">
+            <p className="text-xl md:text-2xl text-gray-300 mb-6 font-sans">
               {section.subtitle}
             </p>
-            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto font-sans">
               {section.content}
             </p>
             {section.contactInfo && (
               <div className="space-y-2">
-                <p className="text-gray-300">📧 {section.contactInfo.email}</p>
-                <p className="text-gray-300">📱 {section.contactInfo.phone}</p>
-                <p className="text-gray-300">📍 {section.contactInfo.location}</p>
-                <p className="text-purple-400 mt-4">{section.contactInfo.availability}</p>
+                <p className="text-gray-300 font-sans">📧 {section.contactInfo.email}</p>
+                <p className="text-gray-300 font-sans">📱 {section.contactInfo.phone}</p>
+                <p className="text-gray-300 font-sans">📍 {section.contactInfo.location}</p>
+                <p className="text-purple-400 mt-4 font-sans">{section.contactInfo.availability}</p>
               </div>
             )}
           </>
@@ -393,7 +393,7 @@ const App: React.FC = () => {
               >
                 🚀
               </motion.div>
-              <div className="text-xl text-cyan-400">Initializing Space Journey...</div>
+              <div className="text-xl text-cyan-400 font-sans">Initializing Space Journey...</div>
             </div>
           </motion.div>
         )}

@@ -4,9 +4,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Space Grotesk', 'sans-serif'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
         mono: ['Space Mono', 'monospace'],
-        display: ['Orbitron', 'sans-serif'],
+        display: ['Crimson Text', 'serif'], // Using Crimson Text as a serif alternative to ITC Serif Gothic
+        heading: ['Crimson Text', 'serif'],
       },
       colors: {
         'space-dark': '#030014',
