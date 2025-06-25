@@ -14,11 +14,6 @@ import portfolioData from './data/portfolio.json';
 import type { PortfolioData, Section, Position, Project } from './types/portfolio';
 import './index.css';
 
-import portfolioJSON from './types/portfolio';
-import type { PortfolioData } from './types/portfolio';
-
-export const portfolioData: PortfolioData = portfolioJSON as PortfolioData;
-
 // Camera controller component
 const CameraController: React.FC<{ targetPlanet: number }> = ({ targetPlanet }) => {
   const { camera } = useThree();
@@ -54,13 +49,15 @@ const CameraController: React.FC<{ targetPlanet: number }> = ({ targetPlanet }) 
 };
 
 const App: React.FC = () => {
-
-   const [currentSection, setCurrentSection] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   
-  // TypeScript knows the shape of your data
+  // Get sections from JSON data
   const { personalInfo, sections } = portfolioData;
   
-  // When mapping sections, TypeScript knows the type
+  // TypeScript knows the shape of your data
   const currentSectionData: Section = sections[currentSection];
   
   // When accessing nested data, you get autocomplete
@@ -69,13 +66,6 @@ const App: React.FC = () => {
       console.log(position.title); // TypeScript knows this exists
     });
   }
-  
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Get sections from JSON data
-  const { personalInfo, sections } = portfolioData;
 
   useEffect(() => {
     setTimeout(() => setIsLoaded(true), 1500);
