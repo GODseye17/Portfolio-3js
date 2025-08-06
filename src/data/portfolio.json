@@ -132,6 +132,84 @@
       "title": "Featured Projects",
       "subtitle": "Innovation Through Code",
       "content": "Building solutions that make a difference - from healthcare applications to AI-powered tools.",
+      "frontendProjects": [
+        {
+          "title": "Restaurant Landing Page",
+          "description": "Modern landing page for a family-owned bar restaurant with elegant design and smooth animations",
+          "longDescription": "Developed a sophisticated landing page for a family-owned bar restaurant featuring modern design principles, smooth animations, and responsive layout. The site showcases the restaurant's atmosphere, menu highlights, and family heritage with an elegant user experience.",
+          "features": [
+            "Responsive design with mobile-first approach",
+            "Smooth scroll animations and transitions",
+            "Interactive menu showcase",
+            "Family story and heritage section",
+            "Contact and reservation integration",
+            "Optimized performance and SEO"
+          ],
+          "technologies": ["HTML5", "CSS3", "JavaScript", "Responsive Design", "Animation Libraries"],
+          "links": {
+            "demo": "https://fncranchi.com/",
+            "github": "#",
+            "live": "https://fncranchi.com/"
+          },
+          "featured": true
+        }
+      ],
+      "fullStackProjects": [
+        {
+          "title": "Patient Care App",
+          "description": "Real-time patient care application with secure session handling and efficient local-first storage",
+          "longDescription": "Developed a real-time patient care app with secure session handling and efficient local-first storage. Designed for offline-first access and synced updates, improving accessibility and data reliability for patient records.",
+          "features": [
+            "Offline-first access with synced updates",
+            "Session-based access control for data privacy",
+            "Efficient local-first storage using Pglite",
+            "Seamless user experience"
+          ],
+          "technologies": ["React", "TailwindCSS", "Pglite (SQLite in WebAssembly)", "Session Management", "SQL"],
+          "links": {
+            "demo": "https://medblocks-patient-app.vercel.app/",
+            "github": "#",
+            "live": "https://medblocks-patient-app.vercel.app/"
+          },
+          "featured": true
+        },
+        {
+          "title": "AI Document Q&A",
+          "description": "AI-powered Q&A app to extract and analyze content from Excel/PDF files using Google Gemini API",
+          "longDescription": "Built an AI-powered Q&A app that extracts and analyzes content from uploaded Excel and PDF documents to provide precise answers using Google's Gemini API. Implemented full-stack functionality with file parsing, API integration, and real-time user interaction.",
+          "features": [
+            "Excel and PDF document parsing",
+            "Real-time Q&A using Gemini API",
+            "Full-stack implementation",
+            "User-friendly interface"
+          ],
+          "technologies": ["HTML", "CSS", "Node.js", "Gemini API", "File Parsing"],
+          "links": {
+            "demo": "https://aichat-gemini.vercel.app/",
+            "github": "#",
+            "live": "https://aichat-gemini.vercel.app/"
+          },
+          "featured": true
+        },
+        {
+          "title": "WeCare: Pregnancy Care Application",
+          "description": "Comprehensive pregnancy and postpartum care application for mothers",
+          "longDescription": "Built a comprehensive pregnancy and postpartum care application using Android Studio. Offered personalized nutrition plans, exercise routines, breastfeeding support, and mental health resources.",
+          "features": [
+            "Personalized nutrition and diet plans",
+            "Tailored exercise routines",
+            "Expert breastfeeding support",
+            "Mental health resources"
+          ],
+          "technologies": ["Android Studio", "Kotlin", "EDAMAM API Integration"],
+          "links": {
+            "demo": "#",
+            "github": "#",
+            "live": "#"
+          },
+          "featured": true
+        }
+      ],
       "projects": [
         {
           "title": "Patient Care App",

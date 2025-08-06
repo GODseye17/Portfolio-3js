@@ -250,7 +250,89 @@ const App: React.FC = () => {
             <p className="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto font-sans text-center px-4">
               {section.content}
             </p>
-            {section.projects && (
+            
+            {/* Frontend Projects Subsection */}
+            {section.frontendProjects && (
+              <div className="mb-8 sm:mb-12">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 font-heading text-cyan-400 text-center">
+                  Frontend Projects
+                </h3>
+                <div className="space-y-4 max-w-3xl mx-auto px-4">
+                  {section.frontendProjects.filter((p: any) => p.featured).map((project: any) => (
+                    <div 
+                      key={project.title}
+                      className="p-4 bg-cyan-400/10 rounded-lg border border-cyan-400/20 interactive cursor-pointer hover:bg-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300"
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
+                        <h4 className="text-cyan-400 font-bold font-heading text-base sm:text-lg">{project.title}</h4>
+                        <a 
+                          href={project.links.live} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 text-sm font-sans"
+                        >
+                          🔗 Live Preview
+                        </a>
+                      </div>
+                      <p className="text-gray-300 text-xs sm:text-sm mt-1 font-sans">{project.description}</p>
+                      {project.technologies && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {project.technologies.slice(0, 3).map((tech: string) => (
+                            <span key={tech} className="px-2 py-1 bg-cyan-400/10 rounded text-xs text-cyan-400">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Full-Stack Projects Subsection */}
+            {section.fullStackProjects && (
+              <div>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 font-heading text-yellow-400 text-center">
+                  Full-Stack Projects
+                </h3>
+                <div className="space-y-4 max-w-3xl mx-auto px-4">
+                  {section.fullStackProjects.filter((p: any) => p.featured).map((project: any) => (
+                    <div 
+                      key={project.title}
+                      className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+                    >
+                      <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
+                        <h4 className="text-yellow-400 font-bold font-heading text-base sm:text-lg">{project.title}</h4>
+                        {project.links.live !== "#" && (
+                          <a 
+                            href={project.links.live} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 text-sm font-sans"
+                          >
+                            🔗 Live Preview
+                          </a>
+                        )}
+                      </div>
+                      <p className="text-gray-300 text-xs sm:text-sm mt-1 font-sans">{project.description}</p>
+                      {project.technologies && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {project.technologies.slice(0, 3).map((tech: string) => (
+                            <span key={tech} className="px-2 py-1 bg-yellow-400/10 rounded text-xs text-yellow-400">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* Fallback for old projects structure */}
+            {!section.frontendProjects && !section.fullStackProjects && section.projects && (
               <div className="space-y-4 max-w-3xl mx-auto px-4">
                 {section.projects.filter((p: any) => p.featured).map((project: any) => (
                   <div 
