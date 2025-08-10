@@ -258,7 +258,7 @@ const App: React.FC = () => {
                   Frontend Projects
                 </h3>
                 <div className="space-y-4 max-w-3xl mx-auto px-4">
-                  {section.frontendProjects.filter((p: any) => p.featured).map((project: any) => (
+                  {section.frontendProjects.map((project: any) => (
                     <div 
                       key={project.title}
                       className="p-4 sm:p-6 bg-cyan-400/10 rounded-lg border border-cyan-400/20 interactive cursor-pointer hover:bg-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300"
@@ -299,14 +299,14 @@ const App: React.FC = () => {
                   Full-Stack Projects
                 </h3>
                 <div className="space-y-4 max-w-3xl mx-auto px-4">
-                  {section.fullStackProjects.filter((p: any) => p.featured).map((project: any) => (
+                  {section.fullStackProjects.map((project: any) => (
                     <div 
                       key={project.title}
                       className="p-4 sm:p-6 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
                     >
                       <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
                         <h4 className="text-yellow-400 font-bold font-heading text-lg sm:text-xl">{project.title}</h4>
-                        {project.links.live !== "#" && (
+                        {project.links.live && project.links.live !== "#" && (
                           <a 
                             href={project.links.live} 
                             target="_blank" 
@@ -334,31 +334,6 @@ const App: React.FC = () => {
             )}
             
             {/* Fallback for old projects structure */}
-            {!section.frontendProjects && !section.fullStackProjects && section.projects && (
-              <div className="space-y-4 max-w-3xl mx-auto px-4">
-                {section.projects.filter((p: any) => p.featured).map((project: any) => (
-                  <div 
-                    key={project.title}
-                    className="p-4 sm:p-6 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
-                  >
-                  <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
-                    <h3 className="text-yellow-400 font-bold font-heading text-lg sm:text-xl">{project.title}</h3>
-                    {project.links && project.links.live && project.links.live !== "#" && (
-                      <a 
-                        href={project.links.live} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="px-3 py-1.5 bg-yellow-400/20 hover:bg-yellow-400/30 text-yellow-300 hover:text-white rounded-full transition-all duration-300 text-sm font-sans border border-yellow-400/30 hover:border-yellow-400/50"
-                      >
-                        🔗 Live Preview
-                      </a>
-                    )}
-                  </div>
-                  <p className="text-gray-200 text-sm sm:text-base mt-1 font-sans leading-relaxed">{project.description}</p>
-                  </div>
-                ))}
-              </div>
-            )}
           </>
         );
         
