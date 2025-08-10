@@ -261,24 +261,26 @@ const App: React.FC = () => {
                   {section.frontendProjects.filter((p: any) => p.featured).map((project: any) => (
                     <div 
                       key={project.title}
-                      className="p-4 bg-cyan-400/10 rounded-lg border border-cyan-400/20 interactive cursor-pointer hover:bg-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300"
+                      className="p-4 sm:p-6 bg-cyan-400/10 rounded-lg border border-cyan-400/20 interactive cursor-pointer hover:bg-cyan-400/20 hover:border-cyan-400/40 transition-all duration-300"
                     >
                       <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
-                        <h4 className="text-cyan-400 font-bold font-heading text-base sm:text-lg">{project.title}</h4>
-                        <a 
-                          href={project.links.live} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300 text-sm font-sans"
-                        >
-                          🔗 Live Preview
-                        </a>
+                        <h4 className="text-cyan-400 font-bold font-heading text-lg sm:text-xl">{project.title}</h4>
+                        {project.links.live && project.links.live !== "#" && (
+                          <a 
+                            href={project.links.live} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="px-3 py-1.5 bg-cyan-400/20 hover:bg-cyan-400/30 text-cyan-300 hover:text-white rounded-full transition-all duration-300 text-sm font-sans border border-cyan-400/30 hover:border-cyan-400/50"
+                          >
+                            🔗 Live Preview
+                          </a>
+                        )}
                       </div>
-                      <p className="text-gray-300 text-xs sm:text-sm mt-1 font-sans">{project.description}</p>
+                      <p className="text-gray-200 text-sm sm:text-base mt-1 font-sans leading-relaxed">{project.description}</p>
                       {project.technologies && (
                         <div className="flex flex-wrap gap-1 mt-2">
                           {project.technologies.slice(0, 3).map((tech: string) => (
-                            <span key={tech} className="px-2 py-1 bg-cyan-400/10 rounded text-xs text-cyan-400">
+                            <span key={tech} className="px-2 py-1 bg-cyan-400/20 rounded text-xs text-cyan-300 border border-cyan-400/20">
                               {tech}
                             </span>
                           ))}
@@ -300,26 +302,26 @@ const App: React.FC = () => {
                   {section.fullStackProjects.filter((p: any) => p.featured).map((project: any) => (
                     <div 
                       key={project.title}
-                      className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+                      className="p-4 sm:p-6 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
                     >
                       <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
-                        <h4 className="text-yellow-400 font-bold font-heading text-base sm:text-lg">{project.title}</h4>
+                        <h4 className="text-yellow-400 font-bold font-heading text-lg sm:text-xl">{project.title}</h4>
                         {project.links.live !== "#" && (
                           <a 
                             href={project.links.live} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-yellow-400 hover:text-yellow-300 transition-colors duration-300 text-sm font-sans"
+                            className="px-3 py-1.5 bg-yellow-400/20 hover:bg-yellow-400/30 text-yellow-300 hover:text-white rounded-full transition-all duration-300 text-sm font-sans border border-yellow-400/30 hover:border-yellow-400/50"
                           >
                             🔗 Live Preview
                           </a>
                         )}
                       </div>
-                      <p className="text-gray-300 text-xs sm:text-sm mt-1 font-sans">{project.description}</p>
+                      <p className="text-gray-200 text-sm sm:text-base mt-1 font-sans leading-relaxed">{project.description}</p>
                       {project.technologies && (
                         <div className="flex flex-wrap gap-1 mt-2">
                           {project.technologies.slice(0, 3).map((tech: string) => (
-                            <span key={tech} className="px-2 py-1 bg-yellow-400/10 rounded text-xs text-yellow-400">
+                            <span key={tech} className="px-2 py-1 bg-yellow-400/20 rounded text-xs text-yellow-300 border border-yellow-400/20">
                               {tech}
                             </span>
                           ))}
@@ -337,10 +339,22 @@ const App: React.FC = () => {
                 {section.projects.filter((p: any) => p.featured).map((project: any) => (
                   <div 
                     key={project.title}
-                    className="p-4 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
+                    className="p-4 sm:p-6 bg-yellow-400/10 rounded-lg border border-yellow-400/20 interactive cursor-pointer hover:bg-yellow-400/20 hover:border-yellow-400/40 transition-all duration-300"
                   >
-                    <h3 className="text-yellow-400 font-bold font-heading text-base sm:text-lg">{project.title}</h3>
-                    <p className="text-gray-300 text-xs sm:text-sm mt-1 font-sans">{project.description}</p>
+                  <div className="flex flex-col sm:flex-row justify-between items-start mb-3 gap-2">
+                    <h3 className="text-yellow-400 font-bold font-heading text-lg sm:text-xl">{project.title}</h3>
+                    {project.links && project.links.live && project.links.live !== "#" && (
+                      <a 
+                        href={project.links.live} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="px-3 py-1.5 bg-yellow-400/20 hover:bg-yellow-400/30 text-yellow-300 hover:text-white rounded-full transition-all duration-300 text-sm font-sans border border-yellow-400/30 hover:border-yellow-400/50"
+                      >
+                        🔗 Live Preview
+                      </a>
+                    )}
+                  </div>
+                  <p className="text-gray-200 text-sm sm:text-base mt-1 font-sans leading-relaxed">{project.description}</p>
                   </div>
                 ))}
               </div>
